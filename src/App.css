@@ -1,0 +1,8 @@
+/* Custom component styles for the wedding website */
+
+/* Ensure full width layout */
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}

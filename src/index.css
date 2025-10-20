@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Great+Vibes&family=Lora:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Lora', serif;
+    background-color: #F5F1EA;
+    background-image: url('/paper-texture.jpg');
+    background-blend-mode: multiply;
+    color: #1A1A1A;
+  }
+
+  /* Reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-16 lg:py-24;
+  }
+  
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+  
+  .gold-divider {
+    @apply w-24 h-px bg-gold mx-auto;
+  }
+  
+  .btn-primary {
+    @apply bg-navy text-cream px-8 py-3 rounded-lg font-medium tracking-wider uppercase transition-all duration-300 hover:bg-steel hover:shadow-lg transform hover:-translate-y-1 focus:ring-2 focus:ring-gold focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-gold text-gold px-8 py-3 rounded-lg font-medium tracking-wider uppercase transition-all duration-300 hover:bg-gold hover:text-navy hover:shadow-lg transform hover:-translate-y-1 focus:ring-2 focus:ring-gold focus:ring-offset-2;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+  }
+}
