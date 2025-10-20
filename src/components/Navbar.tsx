@@ -79,7 +79,7 @@ const Navbar: React.FC = () => {
                     : 'text-cream hover:text-gold drop-shadow-lg'
                 }`}
               >
-                B & J
+                J & B
               </motion.a>
             </motion.div>
 

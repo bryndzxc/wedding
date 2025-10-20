@@ -121,22 +121,7 @@ src/
 - Reduced motion respect
 - Alt text for all images
 
-## 🚀 Deployment
 
-This project is optimized for static hosting on:
-- Vercel
-- Netlify
-- GitHub Pages
-- Any static hosting service
-
-## 📄 Next Steps
-
-1. Install dependencies: `npm install`
-2. Add wedding photos to `/src/assets/prenup/`
-3. Update wedding details in `/src/data/site.ts`
-4. Add remaining components (see TODO list above)
-5. Test responsiveness and accessibility
-6. Deploy to hosting service
 
 ---
 
