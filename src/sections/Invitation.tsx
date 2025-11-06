@@ -9,8 +9,7 @@ export default function Invitation() {
     <Section 
       id="invitation" 
       title="Invitation" 
-      intro="A keepsake to view, save, or print." 
-      floral
+      intro="A keepsake to view, save, or print."
     >
       <div className="mx-auto max-w-4xl">
         <div className="elegant-frame">
