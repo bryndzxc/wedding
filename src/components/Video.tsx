@@ -141,7 +141,7 @@ const Video: React.FC = () => {
             poster="/assets/prenup/hero.jpg"
             preload="metadata"
           >
-            <source src="/videos/STD Brynd + Joanna.mp4" type="video/mp4" />
+            <source src="/videos/STD-Brynd-Joanna.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 
