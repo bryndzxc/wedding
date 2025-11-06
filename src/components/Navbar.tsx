@@ -6,9 +6,10 @@ const navigation = [
   { name: 'Home', href: '#hero' },
   { name: 'Our Story', href: '#story' },
   { name: 'Timeline', href: '#timeline' },
-  { name: 'Locations', href: '#locations' },
+  { name: 'Info', href: '#info' },
   { name: 'Entourage', href: '#entourage' },
   { name: 'Gallery', href: '#gallery' },
+  { name: 'Video', href: '#video' },
   { name: 'RSVP', href: '#rsvp' }
 ];
 
@@ -55,8 +56,8 @@ const Navbar: React.FC = () => {
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-cream/95 backdrop-blur-md shadow-lg border-b border-gold/20' 
-            : 'bg-gradient-to-b from-cream/80 to-transparent backdrop-blur-sm'
+            ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-brand-gold/20' 
+            : 'bg-black/60 backdrop-blur-md shadow-lg border-b border-white/20'
         }`}
       >
         <div className="container-max px-4 sm:px-6 lg:px-8">
@@ -73,10 +74,10 @@ const Navbar: React.FC = () => {
                   e.stopPropagation(); // Prevent event bubbling to music player
                   handleNavClick('#hero');
                 }}
-                className={`font-script text-2xl lg:text-3xl transition-colors duration-300 ${
+                className={`font-script text-2xl lg:text-3xl transition-colors duration-300 font-medium ${
                   isScrolled 
-                    ? 'text-navy hover:text-gold' 
-                    : 'text-cream hover:text-gold drop-shadow-lg'
+                    ? 'text-brand-navy hover:text-brand-gold' 
+                    : 'text-white hover:text-brand-gold drop-shadow-lg'
                 }`}
               >
                 J & B
@@ -95,15 +96,15 @@ const Navbar: React.FC = () => {
                       e.stopPropagation(); // Prevent event bubbling to music player
                       handleNavClick(item.href);
                     }}
-                    className={`px-3 py-2 text-sm font-medium tracking-wider uppercase transition-all duration-300 relative group ${
+                    className={`px-3 py-2 text-sm font-medium tracking-wider uppercase transition-all duration-300 relative group font-semibold ${
                       isScrolled 
-                        ? 'text-navy hover:text-gold' 
-                        : 'text-cream hover:text-gold drop-shadow-lg'
+                        ? 'text-brand-navy hover:text-brand-gold' 
+                        : 'text-white hover:text-brand-gold drop-shadow-lg'
                     }`}
                     whileHover={{ y: -2 }}
                   >
                     {item.name}
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full"></span>
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
                   </motion.a>
                 ))}
               </div>
@@ -117,7 +118,7 @@ const Navbar: React.FC = () => {
                   e.stopPropagation(); // Prevent event bubbling to music player
                   setIsMobileMenuOpen(!isMobileMenuOpen);
                 }}
-                className="bg-navy text-cream p-2 rounded-md hover:bg-steel transition-colors duration-300 focus:ring-2 focus:ring-gold focus:ring-offset-2"
+                className="bg-white/90 text-brand-navy p-2 rounded-md hover:bg-white transition-colors duration-300 focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 border border-brand-gold/30"
                 aria-label="Toggle mobile menu"
               >
                 {isMobileMenuOpen ? (
@@ -137,7 +138,7 @@ const Navbar: React.FC = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-cream/95 backdrop-blur-md border-t border-gold/20"
+              className="lg:hidden bg-white/95 backdrop-blur-md border-t border-brand-gold/20 shadow-lg"
             >
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 {navigation.map((item, index) => (
@@ -148,7 +149,7 @@ const Navbar: React.FC = () => {
                       e.preventDefault();
                       handleNavClick(item.href);
                     }}
-                    className="text-navy hover:text-gold hover:bg-gold/10 block px-3 py-2 text-base font-medium tracking-wider uppercase transition-colors duration-300"
+                    className="text-brand-navy hover:text-brand-gold hover:bg-brand-gold/10 block px-3 py-2 text-base font-medium tracking-wider uppercase transition-colors duration-300 rounded-md"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
@@ -169,7 +170,7 @@ const Navbar: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-navy/20 backdrop-blur-sm z-40 lg:hidden"
+            className="fixed inset-0 bg-brand-navy/30 backdrop-blur-sm z-40 lg:hidden"
             onClick={() => setIsMobileMenuOpen(false)}
           />
         )}

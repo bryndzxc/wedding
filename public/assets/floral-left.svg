@@ -1,0 +1,38 @@
+<svg width="60" height="800" viewBox="0 0 60 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Elegant vertical floral pattern -->
+  
+  <!-- Top flourish -->
+  <path d="M30 20 Q35 15 40 20 Q35 25 30 20 Q25 15 20 20 Q25 25 30 20" fill="#C9A857" opacity="0.3"/>
+  
+  <!-- Repeating vine pattern -->
+  <path d="M30 50 Q25 45 20 50 Q25 55 30 50" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 90 Q35 85 40 90 Q35 95 30 90" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 130 Q25 125 20 130 Q25 135 30 130" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 170 Q35 165 40 170 Q35 175 30 170" fill="#C9A857" opacity="0.2"/>
+  
+  <!-- Middle ornament -->
+  <circle cx="30" cy="210" r="4" fill="#C9A857" opacity="0.4"/>
+  <circle cx="30" cy="210" r="2" fill="#C9A857" opacity="0.6"/>
+  
+  <!-- Continue pattern -->
+  <path d="M30 250 Q25 245 20 250 Q25 255 30 250" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 290 Q35 285 40 290 Q35 295 30 290" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 330 Q25 325 20 330 Q25 335 30 330" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 370 Q35 365 40 370 Q35 375 30 370" fill="#C9A857" opacity="0.2"/>
+  
+  <!-- Lower middle ornament -->
+  <circle cx="30" cy="410" r="3" fill="#C9A857" opacity="0.3"/>
+  
+  <!-- Continue to bottom -->
+  <path d="M30 450 Q25 445 20 450 Q25 455 30 450" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 490 Q35 485 40 490 Q35 495 30 490" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 530 Q25 525 20 530 Q25 535 30 530" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 570 Q35 565 40 570 Q35 575 30 570" fill="#C9A857" opacity="0.2"/>
+  
+  <!-- Bottom flourish -->
+  <path d="M30 620 Q35 615 40 620 Q35 625 30 620 Q25 615 20 620 Q25 625 30 620" fill="#C9A857" opacity="0.3"/>
+  
+  <!-- Delicate connecting vine -->
+  <path d="M30 40 Q32 60 30 80 Q28 100 30 120 Q32 140 30 160 Q28 180 30 200 Q32 220 30 240 Q28 260 30 280 Q32 300 30 320 Q28 340 30 360 Q32 380 30 400 Q28 420 30 440 Q32 460 30 480 Q28 500 30 520 Q32 540 30 560 Q28 580 30 600" 
+        stroke="#C9A857" stroke-width="0.5" opacity="0.2" fill="none"/>
+</svg>

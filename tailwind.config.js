@@ -7,25 +7,36 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: '#1D2A44',
-        steel: '#2F3E5E', 
+        brand: {
+          navy: '#1D2A44',
+          beige: '#E9E3D6', 
+          gold: '#C9A857',
+          ink: '#2B2B2B',
+          paper: '#F7F3EC'
+        },
+        // Keep existing colors for backward compatibility
+        navy:  '#1D2A44',
+        steel: '#2F3E5E',
         dusty: '#5A7DAC',
-        baby: '#9EB7D9',
-        powder: '#D7E4F5',
-        gold: '#C9A65B',
+        baby:  '#9EB7D9',
+        powder:'#D7E4F5',
+        gold:  '#C9A857',
         cream: '#F5F1EA',
-        ink: '#1A1A1A'
+        ink:   '#1A1A1A',
+      },
+      boxShadow: { 
+        'soft-glow': '0 10px 30px rgba(0,0,0,.08)',
+        soft: '0 20px 40px -20px rgba(29,42,68,.35)' 
       },
       fontFamily: {
-        'heading': ['Cormorant Garamond', 'serif'],
-        'script': ['Great Vibes', 'cursive'],
-        'body': ['Lora', 'serif']
+        heading: ['"Playfair Display"', 'serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['"Cormorant Garamond"', 'serif'],
+        script:  ['"Great Vibes"','cursive']
       },
-      backgroundImage: {
-        'paper': "url('/paper-texture.jpg')",
-      },
-      backgroundBlendMode: {
-        'multiply': 'multiply'
+      container: { 
+        center: true, 
+        padding: '1rem' 
       }
     },
   },

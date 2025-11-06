@@ -1,19 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Great+Vibes&family=Lora:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root { 
+  --page-max: 80rem;
+  
+  /* Brand color CSS custom properties for theming */
+  --brand-navy: #1D2A44;
+  --brand-beige: #E9E3D6;
+  --brand-gold: #C9A857;
+  --brand-ink: #2B2B2B;
+  --brand-paper: #F7F3EC;
+  
+  /* Paper texture overlay */
+  --paper-texture: url('/assets/paper.jpg');
+}
 
 @layer base {
   html {
     scroll-behavior: smooth;
   }
   
+  html, body {
+    @apply bg-brand-paper text-brand-ink;
+    background-image: var(--paper-texture);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+  }
+
   body {
-    font-family: 'Lora', serif;
-    background-color: #F5F1EA;
-    background-image: url('/paper-texture.jpg');
-    background-blend-mode: multiply;
-    color: #1A1A1A;
+    font-family: 'Inter', system-ui, sans-serif;
+    /* Subtle paper texture overlay */
+    background: 
+      linear-gradient(180deg, 
+        rgba(247, 243, 236, 0.95) 0%, 
+        rgba(247, 243, 236, 0.98) 100%
+      ),
+      var(--paper-texture);
   }
 
   /* Reduced motion preference */
@@ -28,30 +55,59 @@
       transition-duration: 0.01ms !important;
     }
   }
+
+  /* Typography improvements */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    letter-spacing: 0.025em;
+  }
 }
 
 @layer components {
-  .section-padding {
-    @apply px-4 sm:px-6 lg:px-8 py-16 lg:py-24;
+  .bg-paper { 
+    background-image: var(--paper-texture); 
+    background-blend-mode: multiply; 
   }
   
-  .container-max {
-    @apply max-w-7xl mx-auto;
+  .elegant-input { 
+    @apply w-full bg-transparent border-0 border-b border-brand-gold/50 focus:border-brand-gold/90 focus:outline-none focus:ring-0 px-0 pb-2 text-brand-navy placeholder:text-steel/60 transition-colors duration-300; 
   }
   
-  .gold-divider {
-    @apply w-24 h-px bg-gold mx-auto;
+  .elegant-card { 
+    @apply rounded-2xl bg-brand-beige/90 backdrop-blur shadow-soft-glow; 
   }
   
-  .btn-primary {
-    @apply bg-navy text-cream px-8 py-3 rounded-lg font-medium tracking-wider uppercase transition-all duration-300 hover:bg-steel hover:shadow-lg transform hover:-translate-y-1 focus:ring-2 focus:ring-gold focus:ring-offset-2;
+  .elegant-frame { 
+    @apply p-[1.2px] rounded-2xl bg-gradient-to-br from-brand-gold/80 via-powder/50 to-brand-gold/80; 
   }
   
-  .btn-secondary {
-    @apply border-2 border-gold text-gold px-8 py-3 rounded-lg font-medium tracking-wider uppercase transition-all duration-300 hover:bg-gold hover:text-navy hover:shadow-lg transform hover:-translate-y-1 focus:ring-2 focus:ring-gold focus:ring-offset-2;
+  .section-title { 
+    @apply font-heading text-3xl md:text-4xl text-brand-navy tracking-wide text-center; 
   }
   
-  .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+  .section-rule { 
+    @apply mx-auto my-3 h-[1px] w-24 bg-brand-gold/70; 
+  }
+
+  /* Floral divider component styling */
+  .floral-divider {
+    @apply flex items-center justify-center my-8;
+  }
+
+  .floral-divider::after {
+    content: '';
+    background-image: url('/assets/floral-divider.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 80px;
+    height: 20px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }

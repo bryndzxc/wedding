@@ -1,283 +1,266 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Section from '../ui/Section';
 import { siteConfig } from '../data/site';
-import SectionHeading from './SectionHeading';
+
+interface EntourageMember {
+  name: string;
+  role: string;
+  photo?: string;
+  description?: string;
+}
 
 const Entourage: React.FC = () => {
+  const [selectedMember, setSelectedMember] = useState<EntourageMember | null>(null);
+
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: {},
     visible: {
-      opacity: 1,
       transition: {
         staggerChildren: 0.1
       }
     }
   };
 
-  const itemVariants = {
+  const cardVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
   };
 
+  const hoverVariants = {
+    hover: {
+      y: -8,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  // Transform entourage data into renderable sections
+  const entourageSections = [
+    {
+      title: "Parents of the Groom",
+      members: siteConfig.entourage.parents.groom.map(name => ({ name, role: "Parent", photo: undefined, description: undefined } as EntourageMember))
+    },
+    {
+      title: "Parents of the Bride", 
+      members: siteConfig.entourage.parents.bride.map(name => ({ name, role: "Parent", photo: undefined, description: undefined } as EntourageMember))
+    },
+    {
+      title: "Principal Sponsors",
+      members: siteConfig.entourage.principalSponsors.map(name => ({ name, role: "Principal Sponsor", photo: undefined, description: undefined } as EntourageMember))
+    },
+    {
+      title: "Best Man & Maid of Honor",
+      members: [
+        { name: siteConfig.entourage.bestMan, role: "Best Man", photo: undefined, description: undefined } as EntourageMember,
+        { name: siteConfig.entourage.maidOfHonor, role: "Maid of Honor", photo: undefined, description: undefined } as EntourageMember
+      ]
+    },
+    {
+      title: "Groomsmen",
+      members: siteConfig.entourage.groomsmen.map(name => ({ name, role: "Groomsman", photo: undefined, description: undefined } as EntourageMember))
+    },
+    {
+      title: "Bridesmaids",
+      members: siteConfig.entourage.bridesmaids.map(name => ({ name, role: "Bridesmaid", photo: undefined, description: undefined } as EntourageMember))
+    },
+    {
+      title: "Special Roles",
+      members: [
+        { name: siteConfig.entourage.ringBearer, role: "Ring Bearer", photo: undefined, description: undefined } as EntourageMember,
+        ...siteConfig.entourage.flowerGirl.map(name => ({ name, role: "Flower Girl", photo: undefined, description: undefined } as EntourageMember))
+      ]
+    }
+  ];
+
+  const openModal = (member: EntourageMember) => {
+    setSelectedMember(member);
+  };
+
+  const closeModal = () => {
+    setSelectedMember(null);
+  };
+
+  // Handle keyboard navigation for modal
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && selectedMember) {
+        closeModal();
+      }
+    };
+
+    if (selectedMember) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedMember]);
+
   return (
-    <section id="entourage" className="section-padding bg-gradient-to-b from-powder/20 to-cream relative overflow-hidden">
-      {/* Background Decoration */}
-      <div className="absolute inset-0 bg-gradient-to-br from-baby/5 to-dusty/5"></div>
-      
-      <div className="container-max relative z-10">
-        <SectionHeading 
-          title="Benosa & Rebote Nuptial" 
-          subtitle="Our beloved family and friends who will stand with us"
-        />
-
-        <div className="max-w-6xl mx-auto space-y-16">
-          {/* Parents */}
+    <Section 
+      id="entourage" 
+      title="Our Wedding Party" 
+      intro="The special people who will stand with us on our big day"
+    >
+      <div className="space-y-12">
+        {entourageSections.map((section, sectionIndex) => (
           <motion.div
+            key={section.title}
+            variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={containerVariants}
-            className="text-center"
+            viewport={{ once: true, amount: 0.2 }}
           >
-            <motion.div variants={itemVariants}>
-              <div className="flex items-center justify-center mb-6">
-                <div className="dusty-divider"></div>
-                <h3 className="font-heading text-2xl lg:text-3xl text-navy px-6 uppercase tracking-wider">
-                  Parents
-                </h3>
-                <div className="dusty-divider"></div>
-              </div>
-            </motion.div>
-
-            <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-              <motion.div variants={itemVariants} className="text-center">
-                <h4 className="font-heading text-xl text-steel mb-4 uppercase tracking-wide">
-                  Parents of the Groom
-                </h4>
-                <div className="space-y-2">
-                  {siteConfig.entourage.parents.groom.map((parent, index) => (
-                    <p key={index} className="font-body text-navy text-lg">
-                      {parent}
-                    </p>
-                  ))}
-                </div>
-              </motion.div>
-
-              <motion.div variants={itemVariants} className="text-center">
-                <h4 className="font-heading text-xl text-steel mb-4 uppercase tracking-wide">
-                  Parents of the Bride
-                </h4>
-                <div className="space-y-2">
-                  {siteConfig.entourage.parents.bride.map((parent, index) => (
-                    <p key={index} className="font-body text-navy text-lg">
-                      {parent}
-                    </p>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Principal Sponsors */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={containerVariants}
-            className="text-center"
-          >
-            <motion.div variants={itemVariants}>
-              <div className="flex items-center justify-center mb-6">
-                <div className="dusty-divider"></div>
-                <h3 className="font-heading text-2xl lg:text-3xl text-navy px-6 uppercase tracking-wider">
-                  Principal Sponsors
-                </h3>
-                <div className="dusty-divider"></div>
-              </div>
-            </motion.div>
-
-            <div className="grid md:grid-cols-2 gap-4 lg:gap-6">
-              {siteConfig.entourage.principalSponsors.map((sponsor, index) => (
+            <motion.h3 
+              className="font-heading text-2xl text-brand-navy text-center mb-8"
+              variants={cardVariants}
+            >
+              {section.title}
+            </motion.h3>
+            
+            <div className={`grid gap-6 ${
+              section.members.length === 1 
+                ? 'justify-center max-w-sm mx-auto'
+                : section.members.length === 2 
+                  ? 'md:grid-cols-2 max-w-2xl mx-auto'
+                  : section.members.length <= 4
+                    ? 'md:grid-cols-2 lg:grid-cols-4'
+                    : 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+            }`}>
+              {section.members.map((member, memberIndex) => (
                 <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  className="bg-white/60 backdrop-blur-sm rounded-lg p-4 shadow-md border border-powder/30"
+                  key={`${sectionIndex}-${memberIndex}`}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className="group cursor-pointer"
+                  onClick={() => openModal(member)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      openModal(member);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`View details for ${member.name}`}
                 >
-                  <p className="font-body text-navy text-base lg:text-lg">
-                    {sponsor}
-                  </p>
+                  <motion.div 
+                    className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-soft-glow transition-all duration-300 group-hover:shadow-lg group-focus:shadow-lg group-focus:outline-none group-focus:ring-2 group-focus:ring-brand-gold"
+                    variants={hoverVariants}
+                  >
+                    {/* Photo placeholder */}
+                    <div className="w-20 h-20 mx-auto mb-4 bg-brand-beige/50 rounded-full flex items-center justify-center overflow-hidden">
+                      {member.photo ? (
+                        <img 
+                          src={member.photo} 
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-8 h-8 bg-brand-gold/30 rounded-full flex items-center justify-center">
+                          <span className="text-brand-navy font-heading text-lg">
+                            {member.name.charAt(0)}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <h4 className="font-heading text-lg text-brand-navy text-center mb-1">
+                      {member.name}
+                    </h4>
+                    
+                    <p className="text-brand-gold text-sm text-center font-medium">
+                      {member.role}
+                    </p>
+                  </motion.div>
                 </motion.div>
               ))}
             </div>
           </motion.div>
-
-          {/* Best Man & Maid of Honor */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={containerVariants}
-            className="text-center"
-          >
-            <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-              <motion.div variants={itemVariants}>
-                <div className="flex items-center justify-center mb-4">
-                  <div className="w-12 h-px bg-gold"></div>
-                  <h3 className="font-heading text-xl lg:text-2xl text-navy px-4 uppercase tracking-wider">
-                    Best Man
-                  </h3>
-                  <div className="w-12 h-px bg-gold"></div>
-                </div>
-                <div className="bg-gradient-to-br from-navy/10 to-steel/5 rounded-xl p-6 shadow-lg">
-                  <p className="font-body text-navy text-lg lg:text-xl font-medium">
-                    {siteConfig.entourage.bestMan}
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div variants={itemVariants}>
-                <div className="flex items-center justify-center mb-4">
-                  <div className="w-12 h-px bg-gold"></div>
-                  <h3 className="font-heading text-xl lg:text-2xl text-navy px-4 uppercase tracking-wider">
-                    Maid of Honor
-                  </h3>
-                  <div className="w-12 h-px bg-gold"></div>
-                </div>
-                <div className="bg-gradient-to-br from-dusty/10 to-baby/5 rounded-xl p-6 shadow-lg">
-                  <p className="font-body text-navy text-lg lg:text-xl font-medium">
-                    {siteConfig.entourage.maidOfHonor}
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Groomsmen & Bridesmaids */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={containerVariants}
-            className="text-center"
-          >
-            <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-              <motion.div variants={itemVariants}>
-                <div className="flex items-center justify-center mb-6">
-                  <div className="w-8 h-px bg-gold"></div>
-                  <h3 className="font-heading text-xl lg:text-2xl text-navy px-4 uppercase tracking-wider">
-                    Groomsmen
-                  </h3>
-                  <div className="w-8 h-px bg-gold"></div>
-                </div>
-                <div className="space-y-3">
-                  {siteConfig.entourage.groomsmen.map((groomsman, index) => (
-                    <motion.div
-                      key={index}
-                      variants={itemVariants}
-                      className="bg-white/50 backdrop-blur-sm rounded-lg p-3 shadow-md border border-navy/10"
-                    >
-                      <p className="font-body text-navy text-base lg:text-lg">
-                        {groomsman}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-
-              <motion.div variants={itemVariants}>
-                <div className="flex items-center justify-center mb-6">
-                  <div className="w-8 h-px bg-gold"></div>
-                  <h3 className="font-heading text-xl lg:text-2xl text-navy px-4 uppercase tracking-wider">
-                    Bridesmaids
-                  </h3>
-                  <div className="w-8 h-px bg-gold"></div>
-                </div>
-                <div className="space-y-3">
-                  {siteConfig.entourage.bridesmaids.map((bridesmaid, index) => (
-                    <motion.div
-                      key={index}
-                      variants={itemVariants}
-                      className="bg-white/50 backdrop-blur-sm rounded-lg p-3 shadow-md border border-dusty/10"
-                    >
-                      <p className="font-body text-navy text-base lg:text-lg">
-                        {bridesmaid}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Ring Bearer & Flower Girl */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={containerVariants}
-            className="text-center"
-          >
-            <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-              <motion.div variants={itemVariants}>
-                <div className="flex items-center justify-center mb-4">
-                  <div className="w-8 h-px bg-gold"></div>
-                  <h3 className="font-heading text-xl lg:text-2xl text-navy px-4 uppercase tracking-wider">
-                    Ring Bearer
-                  </h3>
-                  <div className="w-8 h-px bg-gold"></div>
-                </div>
-                <div className="bg-gradient-to-br from-gold/10 to-cream rounded-xl p-6 shadow-lg">
-                  <p className="font-body text-navy text-lg lg:text-xl font-medium">
-                    {siteConfig.entourage.ringBearer}
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div variants={itemVariants}>
-                <div className="flex items-center justify-center mb-4">
-                  <div className="w-8 h-px bg-gold"></div>
-                  <h3 className="font-heading text-xl lg:text-2xl text-navy px-4 uppercase tracking-wider">
-                    Flower Girls
-                  </h3>
-                  <div className="w-8 h-px bg-gold"></div>
-                </div>
-                <div className="bg-gradient-to-br from-baby/10 to-powder/20 rounded-xl p-6 shadow-lg space-y-2">
-                  {Array.isArray(siteConfig.entourage.flowerGirl) ? (
-                    siteConfig.entourage.flowerGirl.map((girl, index) => (
-                      <p key={index} className="font-body text-navy text-lg lg:text-xl font-medium">
-                        {girl}
-                      </p>
-                    ))
-                  ) : (
-                    <p className="font-body text-navy text-lg lg:text-xl font-medium">
-                      {siteConfig.entourage.flowerGirl}
-                    </p>
-                  )}
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Closing Message */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-center mt-16"
-        >
-          <div className="max-w-2xl mx-auto bg-gradient-to-r from-cream/80 to-powder/30 rounded-2xl p-8 shadow-xl border border-gold/20">
-            <p className="font-script text-2xl lg:text-3xl text-navy mb-4">
-              "Surrounded by love, supported by family"
-            </p>
-            <p className="font-body text-steel text-base lg:text-lg">
-              We are blessed to have these wonderful people by our side as we begin this new chapter together.
-            </p>
-          </div>
-        </motion.div>
+        ))}
       </div>
-    </section>
+
+      {/* Modal for member details */}
+      <AnimatePresence>
+        {selectedMember && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeModal}
+          >
+            {/* Backdrop */}
+            <div className="absolute inset-0 bg-brand-navy/80 backdrop-blur-sm" />
+            
+            {/* Modal Content */}
+            <motion.div
+              className="relative bg-white rounded-2xl p-8 shadow-2xl max-w-md w-full mx-4"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close button */}
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-brand-beige/50 hover:bg-brand-beige transition-colors duration-200"
+                aria-label="Close modal"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              {/* Photo */}
+              <div className="w-24 h-24 mx-auto mb-6 bg-brand-beige/50 rounded-full flex items-center justify-center overflow-hidden">
+                {selectedMember.photo ? (
+                  <img 
+                    src={selectedMember.photo} 
+                    alt={selectedMember.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-12 h-12 bg-brand-gold/30 rounded-full flex items-center justify-center">
+                    <span className="text-brand-navy font-heading text-2xl">
+                      {selectedMember.name.charAt(0)}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Content */}
+              <div className="text-center">
+                <h3 className="font-heading text-2xl text-brand-navy mb-2">
+                  {selectedMember.name}
+                </h3>
+                <p className="text-brand-gold font-medium mb-4">
+                  {selectedMember.role}
+                </p>
+                {selectedMember.description && (
+                  <p className="text-brand-ink/80 leading-relaxed">
+                    {selectedMember.description}
+                  </p>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </Section>
   );
 };
 

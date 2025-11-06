@@ -1,0 +1,38 @@
+<svg width="60" height="800" viewBox="0 0 60 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Mirror of left floral pattern -->
+  
+  <!-- Top flourish -->
+  <path d="M30 20 Q25 15 20 20 Q25 25 30 20 Q35 15 40 20 Q35 25 30 20" fill="#C9A857" opacity="0.3"/>
+  
+  <!-- Repeating vine pattern (mirrored) -->
+  <path d="M30 50 Q35 45 40 50 Q35 55 30 50" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 90 Q25 85 20 90 Q25 95 30 90" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 130 Q35 125 40 130 Q35 135 30 130" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 170 Q25 165 20 170 Q25 175 30 170" fill="#C9A857" opacity="0.2"/>
+  
+  <!-- Middle ornament -->
+  <circle cx="30" cy="210" r="4" fill="#C9A857" opacity="0.4"/>
+  <circle cx="30" cy="210" r="2" fill="#C9A857" opacity="0.6"/>
+  
+  <!-- Continue pattern -->
+  <path d="M30 250 Q35 245 40 250 Q35 255 30 250" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 290 Q25 285 20 290 Q25 295 30 290" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 330 Q35 325 40 330 Q35 335 30 330" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 370 Q25 365 20 370 Q25 375 30 370" fill="#C9A857" opacity="0.2"/>
+  
+  <!-- Lower middle ornament -->
+  <circle cx="30" cy="410" r="3" fill="#C9A857" opacity="0.3"/>
+  
+  <!-- Continue to bottom -->
+  <path d="M30 450 Q35 445 40 450 Q35 455 30 450" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 490 Q25 485 20 490 Q25 495 30 490" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 530 Q35 525 40 530 Q35 535 30 530" fill="#C9A857" opacity="0.2"/>
+  <path d="M30 570 Q25 565 20 570 Q25 575 30 570" fill="#C9A857" opacity="0.2"/>
+  
+  <!-- Bottom flourish -->
+  <path d="M30 620 Q25 615 20 620 Q25 625 30 620 Q35 615 40 620 Q35 625 30 620" fill="#C9A857" opacity="0.3"/>
+  
+  <!-- Delicate connecting vine (mirrored) -->
+  <path d="M30 40 Q28 60 30 80 Q32 100 30 120 Q28 140 30 160 Q32 180 30 200 Q28 220 30 240 Q32 260 30 280 Q28 300 30 320 Q32 340 30 360 Q28 380 30 400 Q32 420 30 440 Q28 460 30 480 Q32 500 30 520 Q28 540 30 560 Q32 580 30 600" 
+        stroke="#C9A857" stroke-width="0.5" opacity="0.2" fill="none"/>
+</svg>

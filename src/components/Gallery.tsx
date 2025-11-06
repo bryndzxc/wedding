@@ -1,166 +1,220 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { HiOutlineChevronLeft, HiOutlineChevronRight, HiOutlineXMark } from 'react-icons/hi2';
+import Section from '../ui/Section';
 import { siteConfig } from '../data/site';
-import SectionHeading from './SectionHeading';
 
 const Gallery: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState<number | null>(null);
-  const [imageLoaded, setImageLoaded] = useState<{ [key: string]: boolean }>({});
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [imageLoadErrors, setImageLoadErrors] = useState<Set<number>>(new Set());
 
   const openLightbox = (index: number) => {
-    setSelectedImage(index);
-    document.body.style.overflow = 'hidden';
+    setSelectedImageIndex(index);
   };
 
   const closeLightbox = () => {
-    setSelectedImage(null);
-    document.body.style.overflow = 'unset';
+    setSelectedImageIndex(null);
   };
 
-  const goToPrevious = () => {
-    if (selectedImage !== null) {
-      setSelectedImage(selectedImage === 0 ? siteConfig.gallery.length - 1 : selectedImage - 1);
+  const navigateImage = useCallback((direction: 'prev' | 'next') => {
+    if (selectedImageIndex === null) return;
+    
+    const totalImages = siteConfig.gallery.length;
+    if (direction === 'prev') {
+      setSelectedImageIndex(selectedImageIndex === 0 ? totalImages - 1 : selectedImageIndex - 1);
+    } else {
+      setSelectedImageIndex(selectedImageIndex === totalImages - 1 ? 0 : selectedImageIndex + 1);
+    }
+  }, [selectedImageIndex]);
+
+  const handleImageError = (index: number) => {
+    setImageLoadErrors(prev => new Set(prev).add(index));
+  };
+
+  // Handle keyboard navigation
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImageIndex === null) return;
+      
+      switch (e.key) {
+        case 'Escape':
+          closeLightbox();
+          break;
+        case 'ArrowLeft':
+          navigateImage('prev');
+          break;
+        case 'ArrowRight':
+          navigateImage('next');
+          break;
+      }
+    };
+
+    if (selectedImageIndex !== null) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedImageIndex, navigateImage]);
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1
+      }
     }
   };
 
-  const goToNext = () => {
-    if (selectedImage !== null) {
-      setSelectedImage(selectedImage === siteConfig.gallery.length - 1 ? 0 : selectedImage + 1);
+  const imageVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
     }
-  };
-
-  const handleImageLoad = (src: string) => {
-    setImageLoaded(prev => ({ ...prev, [src]: true }));
   };
 
   return (
-    <section id="gallery" className="section-padding bg-gradient-to-b from-powder/20 to-cream">
-      <div className="container-max">
-        <SectionHeading 
-          title="Gallery" 
-          subtitle="Capturing precious moments from our love story"
-        />
-
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
-          {siteConfig.gallery.map((image, index) => (
+    <Section 
+      id="gallery" 
+      title="Our Journey in Pictures" 
+      intro="Capturing beautiful moments from our engagement photoshoot"
+      background="paper"
+    >
+      {/* CSS Columns Masonry Gallery */}
+      <motion.div 
+        className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+      >
+        {siteConfig.gallery.map((imagePath, index) => {
+          // Skip images that failed to load
+          if (imageLoadErrors.has(index)) return null;
+          
+          return (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.05 }}
-              className="relative aspect-square overflow-hidden rounded-lg shadow-lg cursor-pointer group"
+              variants={imageVariants}
+              className="break-inside-avoid mb-4 group cursor-pointer"
               onClick={() => openLightbox(index)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  openLightbox(index);
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label={`View image ${index + 1} in lightbox`}
             >
-              {/* Loading placeholder */}
-              {!imageLoaded[image] && (
-                <div className="absolute inset-0 bg-powder/50 animate-pulse" />
-              )}
-              
-              <img
-                src={image}
-                alt={`Prenup photo ${index + 1}`}
-                className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-110 ${
-                  imageLoaded[image] ? 'opacity-100' : 'opacity-0'
-                }`}
-                loading="lazy"
-                onLoad={() => handleImageLoad(image)}
-              />
-              
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/20 transition-all duration-300" />
-              
-              {/* Hover icon */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="bg-cream/90 rounded-full p-3">
-                  <svg className="w-6 h-6 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                  </svg>
+              <div className="relative overflow-hidden rounded-xl shadow-soft-glow transition-all duration-300 group-hover:shadow-lg group-focus:shadow-lg group-focus:outline-none group-focus:ring-2 group-focus:ring-brand-gold">
+                <img 
+                  src={imagePath}
+                  alt={`Prenup photoshoot ${index + 1}`}
+                  loading="lazy"
+                  className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                  onError={() => handleImageError(index)}
+                  style={{ aspectRatio: 'auto' }}
+                />
+                
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-brand-navy/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="bg-white/90 rounded-full p-3">
+                    <svg className="w-6 h-6 text-brand-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </motion.div>
-          ))}
-        </div>
+          );
+        })}
+      </motion.div>
 
-        {/* Lightbox */}
-        <AnimatePresence>
-          {selectedImage !== null && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-navy/95 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImageIndex !== null && (
+          <motion.div
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeLightbox}
+          >
+            {/* Navigation Controls */}
+            <div className="absolute inset-0 flex items-center justify-between p-4 z-10">
+              {/* Previous Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateImage('prev');
+                }}
+                className="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200"
+                aria-label="Previous image"
+              >
+                <HiOutlineChevronLeft className="w-6 h-6 text-white" />
+              </button>
+
+              {/* Next Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateImage('next');
+                }}
+                className="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200"
+                aria-label="Next image"
+              >
+                <HiOutlineChevronRight className="w-6 h-6 text-white" />
+              </button>
+            </div>
+
+            {/* Close Button */}
+            <button
               onClick={closeLightbox}
+              className="absolute top-4 right-4 z-20 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200"
+              aria-label="Close lightbox"
             >
-              {/* Close button */}
-              <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 }}
-                className="absolute top-4 right-4 z-60 bg-cream/20 hover:bg-cream/30 text-cream p-2 rounded-full transition-colors duration-300"
-                onClick={closeLightbox}
-              >
-                <FiX size={24} />
-              </motion.button>
+              <HiOutlineXMark className="w-6 h-6 text-white" />
+            </button>
 
-              {/* Navigation buttons */}
-              <motion.button
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 z-60 bg-cream/20 hover:bg-cream/30 text-cream p-2 rounded-full transition-colors duration-300"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  goToPrevious();
-                }}
-              >
-                <FiChevronLeft size={24} />
-              </motion.button>
+            {/* Image Counter */}
+            <div className="absolute top-4 left-4 z-20 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+              {selectedImageIndex + 1} / {siteConfig.gallery.length}
+            </div>
 
-              <motion.button
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 z-60 bg-cream/20 hover:bg-cream/30 text-cream p-2 rounded-full transition-colors duration-300"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  goToNext();
-                }}
-              >
-                <FiChevronRight size={24} />
-              </motion.button>
-
-              {/* Image */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="max-w-4xl max-h-[90vh] w-full h-full flex items-center justify-center"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <img
-                  src={siteConfig.gallery[selectedImage]}
-                  alt={`Prenup photo ${selectedImage + 1}`}
-                  className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
-                />
-              </motion.div>
-
-              {/* Image counter */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-cream/20 text-cream px-4 py-2 rounded-full text-sm font-medium"
-              >
-                {selectedImage + 1} of {siteConfig.gallery.length}
-              </motion.div>
+            {/* Main Image */}
+            <motion.div
+              className="relative max-w-full max-h-full p-8"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={siteConfig.gallery[selectedImageIndex]}
+                alt={`Prenup photoshoot ${selectedImageIndex + 1}`}
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              />
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </section>
+
+            {/* Navigation Hints */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white/70 text-sm text-center">
+              <p>Use arrow keys to navigate • Press ESC to close</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </Section>
   );
 };
 

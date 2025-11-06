@@ -1,0 +1,19 @@
+<svg width="120" height="20" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Central ornament -->
+  <circle cx="60" cy="10" r="3" fill="#C9A857" opacity="0.8"/>
+  <circle cx="60" cy="10" r="1.5" fill="#C9A857"/>
+  
+  <!-- Side flourishes -->
+  <path d="M45 10 Q50 6 55 10 Q50 14 45 10" fill="#C9A857" opacity="0.6"/>
+  <path d="M75 10 Q70 6 65 10 Q70 14 75 10" fill="#C9A857" opacity="0.6"/>
+  
+  <!-- Outer decorative dots -->
+  <circle cx="35" cy="10" r="1" fill="#C9A857" opacity="0.5"/>
+  <circle cx="85" cy="10" r="1" fill="#C9A857" opacity="0.5"/>
+  <circle cx="25" cy="10" r="0.5" fill="#C9A857" opacity="0.3"/>
+  <circle cx="95" cy="10" r="0.5" fill="#C9A857" opacity="0.3"/>
+  
+  <!-- Delicate connecting lines -->
+  <line x1="26" y1="10" x2="34" y2="10" stroke="#C9A857" stroke-width="0.5" opacity="0.4"/>
+  <line x1="86" y1="10" x2="94" y2="10" stroke="#C9A857" stroke-width="0.5" opacity="0.4"/>
+</svg>
