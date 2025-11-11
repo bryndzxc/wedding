@@ -101,10 +101,10 @@ export const siteConfig = {
       bride: ["Mr. Joseph P. Rebote", "Mrs. Annaliza T. Rebote"]
     },
     principalSponsors: [
-      "Bro. Eric Zagalasis & Seferina Galope",
-      "Bro. Edmundo Blancaflor & Sis. Rosalinda Querobin", 
-      "Bro. Kim Lim & Sis. Sheila Lim",
-      "Bro. Ruel Cantuba & Sis. Laymen Cantuba",
+      "Eric Zagalasis & Seferina Galope",
+      "Edmundo Blancaflor & Rosalinda Querobin", 
+      "Kim Lim & Sheila Lim",
+      "Ruel Cantuba & Laymen Cantuba",
       "Mr. Noel Calibod & Mrs. Elvi Calibod"
     ],
     bestMan: "Prince Ernhel Palacios",

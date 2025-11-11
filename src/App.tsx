@@ -21,16 +21,16 @@ function App() {
         <Navbar />
         <Hero />
         <Story />
+        <Video />
         <Timeline />
         <AttireGuide />
         <Info />
         <Entourage />
         <Gallery />
-        <Video />
         <RSVP />
         <footer className="border-t border-brand-gold/30 py-8 text-center text-sm text-brand-ink/70 mt-16 bg-brand-beige/20">
           <p className="font-body">
-            With love, {new Date().getFullYear()} • <span className="font-script text-brand-navy text-lg">Brynd & Joanna</span>
+            With love, {new Date().getFullYear()} • <span className="font-heading text-brand-navy text-lg">Brynd & Joanna</span>
           </p>
         </footer>
       </Layout>

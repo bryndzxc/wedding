@@ -74,7 +74,7 @@ const Navbar: React.FC = () => {
                   e.stopPropagation(); // Prevent event bubbling to music player
                   handleNavClick('#hero');
                 }}
-                className={`font-script text-2xl lg:text-3xl transition-colors duration-300 font-medium ${
+                className={`font-heading text-2xl lg:text-3xl transition-colors duration-300 font-medium ${
                   isScrolled 
                     ? 'text-brand-navy hover:text-brand-gold' 
                     : 'text-white hover:text-brand-gold drop-shadow-lg'

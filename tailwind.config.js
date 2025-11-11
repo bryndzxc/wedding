@@ -30,9 +30,7 @@ export default {
       },
       fontFamily: {
         heading: ['"Playfair Display"', 'serif'],
-        body: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['"Cormorant Garamond"', 'serif'],
-        script:  ['"Great Vibes"','cursive']
+        body: ['Inter', 'system-ui', 'sans-serif']
       },
       container: { 
         center: true, 

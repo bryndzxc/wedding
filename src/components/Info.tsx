@@ -276,7 +276,7 @@ const Info: React.FC = () => {
       >
         <p className="font-heading text-brand-navy mb-2">Snap & Share:</p>
         <button 
-          className="font-script text-2xl text-brand-gold hover:text-brand-navy transition-colors duration-200 relative"
+          className="font-heading text-2xl text-brand-gold hover:text-brand-navy transition-colors duration-200 relative"
           onClick={copyHashtag}
         >
           {siteConfig.couple.hashtag}

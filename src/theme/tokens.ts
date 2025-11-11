@@ -40,14 +40,6 @@ export const typography = {
   body: {
     font: 'font-body',
     weight: 'font-normal'
-  },
-  display: {
-    font: 'font-display',
-    weight: 'font-normal'
-  },
-  script: {
-    font: 'font-script',
-    weight: 'font-normal'
   }
 } as const;
 

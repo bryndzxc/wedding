@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 import Section from '../ui/Section';
 import { siteConfig } from '../data/site';
 
@@ -31,7 +31,7 @@ export default function Timeline() {
           <div className="elegant-card p-8 md:p-12">
             {/* Timeline Header */}
             <div className="text-center mb-12">
-              <h3 className="font-display text-2xl md:text-3xl text-navy mb-4">
+              <h3 className="font-heading text-2xl md:text-3xl text-navy mb-4">
                 Wedding Timeline
               </h3>
               <div className="h-px bg-gradient-to-r from-transparent via-gold to-transparent w-24 mx-auto"></div>
@@ -58,10 +58,10 @@ export default function Timeline() {
                         : 'md:text-left md:pl-8'
                     } text-center md:text-left`}>
                       <div className="mb-4 md:mb-0">
-                        <h4 className="font-display text-xl md:text-2xl text-navy font-semibold mb-2">
+                        <h4 className="font-heading text-xl md:text-2xl text-navy font-semibold mb-2">
                           {item.event}
                         </h4>
-                        <p className="text-steel/80 text-sm md:text-base leading-relaxed">
+                        <p className="font-body text-steel/80 text-sm md:text-base leading-relaxed">
                           {item.description}
                         </p>
                       </div>
@@ -79,10 +79,10 @@ export default function Timeline() {
                         : 'md:text-right md:pr-8'
                     } text-center`}>
                       <div className="bg-navy/5 rounded-lg p-4 border border-gold/20">
-                        <div className="text-2xl md:text-3xl font-display font-bold text-navy mb-1">
+                        <div className="text-2xl md:text-3xl font-heading font-bold text-navy mb-1 !font-heading">
                           {item.time}
                         </div>
-                        <div className="text-steel/60 text-sm uppercase tracking-wide">
+                        <div className="font-body text-steel/60 text-sm uppercase tracking-wide">
                           {item.event}
                         </div>
                       </div>

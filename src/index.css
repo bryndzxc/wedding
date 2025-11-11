@@ -33,7 +33,7 @@
   }
 
   body {
-    font-family: 'Inter', system-ui, sans-serif;
+    @apply font-body;
     /* Subtle paper texture overlay */
     background: 
       linear-gradient(180deg, 
