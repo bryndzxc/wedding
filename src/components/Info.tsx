@@ -72,16 +72,27 @@ const Info: React.FC = () => {
       >
         {/* Ceremony Details */}
         <motion.div 
-          className="bg-white/90 backdrop-blur rounded-2xl p-8 shadow-soft-glow"
+          className="bg-white/90 backdrop-blur rounded-2xl overflow-hidden shadow-soft-glow"
           variants={cardVariants}
           whileHover={{ y: -5, transition: { duration: 0.2 } }}
         >
-          <div className="flex items-center mb-6">
-            <div className="w-12 h-12 bg-brand-navy/10 rounded-full flex items-center justify-center mr-4">
-              <HiOutlineMapPin className="w-6 h-6 text-brand-navy" />
-            </div>
-            <h3 className="font-heading text-2xl text-brand-navy">Ceremony</h3>
+          {/* Ceremony Image */}
+          <div className="relative h-48 overflow-hidden">
+            <img 
+              src="/images/ceremony_location.JPG" 
+              alt="Ceremony venue - Iglesia Ni Cristo Lalaan"
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-brand-navy/20"></div>
           </div>
+          
+          <div className="p-8">
+            <div className="flex items-center mb-6">
+              <div className="w-12 h-12 bg-brand-navy/10 rounded-full flex items-center justify-center mr-4">
+                <HiOutlineMapPin className="w-6 h-6 text-brand-navy" />
+              </div>
+              <h3 className="font-heading text-2xl text-brand-navy">Ceremony</h3>
+            </div>
 
           <div className="space-y-4 mb-6">
             <div className="flex items-start">
@@ -119,25 +130,37 @@ const Info: React.FC = () => {
             </button>
           </div>
 
-          <p className="text-sm text-brand-ink/60 mt-4 italic">
-            {siteConfig.venues.ceremony.directions}
-          </p>
+            <p className="text-sm text-brand-ink/60 mt-4 italic">
+              {siteConfig.venues.ceremony.directions}
+            </p>
+          </div>
         </motion.div>
 
         {/* Reception Details */}
         <motion.div 
-          className="bg-white/90 backdrop-blur rounded-2xl p-8 shadow-soft-glow"
+          className="bg-white/90 backdrop-blur rounded-2xl overflow-hidden shadow-soft-glow"
           variants={cardVariants}
           whileHover={{ y: -5, transition: { duration: 0.2 } }}
         >
-          <div className="flex items-center mb-6">
-            <div className="w-12 h-12 bg-brand-gold/10 rounded-full flex items-center justify-center mr-4">
-              <svg className="w-6 h-6 text-brand-gold" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-            </div>
-            <h3 className="font-heading text-2xl text-brand-navy">Reception</h3>
+          {/* Reception Image */}
+          <div className="relative h-48 overflow-hidden">
+            <img 
+              src="/images/reception_location.jpg" 
+              alt="Reception venue - Farm Hills Garden"
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-brand-gold/20"></div>
           </div>
+          
+          <div className="p-8">
+            <div className="flex items-center mb-6">
+              <div className="w-12 h-12 bg-brand-gold/10 rounded-full flex items-center justify-center mr-4">
+                <svg className="w-6 h-6 text-brand-gold" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              </div>
+              <h3 className="font-heading text-2xl text-brand-navy">Reception</h3>
+            </div>
 
           <div className="space-y-4 mb-6">
             <div className="flex items-start">
@@ -175,9 +198,10 @@ const Info: React.FC = () => {
             </button>
           </div>
 
-          <p className="text-sm text-brand-ink/60 mt-4 italic">
-            {siteConfig.venues.reception.description}
-          </p>
+            <p className="text-sm text-brand-ink/60 mt-4 italic">
+              {siteConfig.venues.reception.description}
+            </p>
+          </div>
         </motion.div>
       </motion.div>
 

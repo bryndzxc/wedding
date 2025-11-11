@@ -9,7 +9,6 @@ import Timeline from './components/Timeline';
 import AttireGuide from './components/AttireGuide';
 import Info from './components/Info';
 import Entourage from './components/Entourage';
-import LocationGuide from './components/LocationGuide';
 import Gallery from './components/Gallery';
 import RSVP from './components/RSVP';
 import './App.css';
@@ -26,7 +25,6 @@ function App() {
         <AttireGuide />
         <Info />
         <Entourage />
-        <LocationGuide />
         <Gallery />
         <Video />
         <RSVP />

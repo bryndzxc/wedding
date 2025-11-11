@@ -136,6 +136,10 @@ const Entourage: React.FC = () => {
                 ? 'justify-center max-w-sm mx-auto'
                 : section.members.length === 2 
                   ? 'md:grid-cols-2 max-w-2xl mx-auto'
+                : section.title === 'Principal Sponsors'
+                    ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4'
+                : section.title === 'Special Roles'
+                    ? 'md:grid-cols-3 max-w-4xl mx-auto'
                   : section.members.length <= 4
                     ? 'md:grid-cols-2 lg:grid-cols-4'
                     : 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
@@ -158,27 +162,18 @@ const Entourage: React.FC = () => {
                   aria-label={`View details for ${member.name}`}
                 >
                   <motion.div 
-                    className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-soft-glow transition-all duration-300 group-hover:shadow-lg group-focus:shadow-lg group-focus:outline-none group-focus:ring-2 group-focus:ring-brand-gold"
+                    className={`bg-white/90 backdrop-blur rounded-2xl shadow-soft-glow transition-all duration-300 group-hover:shadow-lg group-focus:shadow-lg group-focus:outline-none group-focus:ring-2 group-focus:ring-brand-gold ${
+                      section.title === 'Principal Sponsors' 
+                        ? 'p-4 min-h-[120px] flex flex-col justify-center'
+                        : 'p-6'
+                    }`}
                     variants={hoverVariants}
                   >
-                    {/* Photo placeholder */}
-                    <div className="w-20 h-20 mx-auto mb-4 bg-brand-beige/50 rounded-full flex items-center justify-center overflow-hidden">
-                      {member.photo ? (
-                        <img 
-                          src={member.photo} 
-                          alt={member.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-8 h-8 bg-brand-gold/30 rounded-full flex items-center justify-center">
-                          <span className="text-brand-navy font-heading text-lg">
-                            {member.name.charAt(0)}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    
-                    <h4 className="font-heading text-lg text-brand-navy text-center mb-1">
+                    <h4 className={`font-heading text-brand-navy text-center mb-1 ${
+                      section.title === 'Principal Sponsors' 
+                        ? 'text-base leading-snug'
+                        : 'text-lg'
+                    }`}>
                       {member.name}
                     </h4>
                     
@@ -224,23 +219,6 @@ const Entourage: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
-
-              {/* Photo */}
-              <div className="w-24 h-24 mx-auto mb-6 bg-brand-beige/50 rounded-full flex items-center justify-center overflow-hidden">
-                {selectedMember.photo ? (
-                  <img 
-                    src={selectedMember.photo} 
-                    alt={selectedMember.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-12 h-12 bg-brand-gold/30 rounded-full flex items-center justify-center">
-                    <span className="text-brand-navy font-heading text-2xl">
-                      {selectedMember.name.charAt(0)}
-                    </span>
-                  </div>
-                )}
-              </div>
 
               {/* Content */}
               <div className="text-center">

@@ -7,6 +7,10 @@ import { siteConfig } from '../data/site';
 const Gallery: React.FC = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [imageLoadErrors, setImageLoadErrors] = useState<Set<number>>(new Set());
+  const [loadingImages, setLoadingImages] = useState<Set<number>>(new Set());
+
+  // Show all images by default
+  const imagesToShow = siteConfig.gallery;
 
   const openLightbox = (index: number) => {
     setSelectedImageIndex(index);
@@ -28,7 +32,27 @@ const Gallery: React.FC = () => {
   }, [selectedImageIndex]);
 
   const handleImageError = (index: number) => {
+    console.error(`Failed to load image at index ${index}:`, imagesToShow[index]);
     setImageLoadErrors(prev => new Set(prev).add(index));
+    setLoadingImages(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(index);
+      return newSet;
+    });
+  };
+
+  const handleImageLoad = (index: number) => {
+    console.log(`Successfully loaded image at index ${index}:`, imagesToShow[index]);
+    setLoadingImages(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(index);
+      return newSet;
+    });
+  };
+
+  const handleImageLoadStart = (index: number) => {
+    console.log(`Starting to load image at index ${index}:`, imagesToShow[index]);
+    setLoadingImages(prev => new Set(prev).add(index));
   };
 
   // Handle keyboard navigation
@@ -88,23 +112,25 @@ const Gallery: React.FC = () => {
       intro="Capturing beautiful moments from our engagement photoshoot"
       background="paper"
     >
-      {/* CSS Columns Masonry Gallery */}
+      {/* Elegant Grid Gallery */}
       <motion.div 
-        className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
+        className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
       >
-        {siteConfig.gallery.map((imagePath, index) => {
+        {imagesToShow.map((imagePath, index) => {
           // Skip images that failed to load
           if (imageLoadErrors.has(index)) return null;
           
+          const isLoading = loadingImages.has(index);
+          
           return (
             <motion.div
-              key={index}
+              key={`${imagePath}-${index}`}
               variants={imageVariants}
-              className="break-inside-avoid mb-4 group cursor-pointer"
+              className="group cursor-pointer"
               onClick={() => openLightbox(index)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -116,23 +142,38 @@ const Gallery: React.FC = () => {
               role="button"
               aria-label={`View image ${index + 1} in lightbox`}
             >
-              <div className="relative overflow-hidden rounded-xl shadow-soft-glow transition-all duration-300 group-hover:shadow-lg group-focus:shadow-lg group-focus:outline-none group-focus:ring-2 group-focus:ring-brand-gold">
+              <div className="relative aspect-square overflow-hidden rounded-2xl shadow-soft-glow transition-all duration-300 group-hover:shadow-xl group-focus:shadow-xl group-focus:outline-none group-focus:ring-2 group-focus:ring-brand-gold">
+                
+                {/* Loading Skeleton - Show initially and while loading */}
+                <div className={`absolute inset-0 bg-brand-beige/30 flex items-center justify-center transition-opacity duration-300 ${isLoading ? 'opacity-100' : 'opacity-0'}`}>
+                  <div className="flex flex-col items-center space-y-2">
+                    <div className="w-8 h-8 border-2 border-brand-gold border-t-transparent rounded-full animate-spin"></div>
+                    <div className="text-xs text-brand-ink/60">Loading...</div>
+                  </div>
+                </div>
+                
                 <img 
                   src={imagePath}
                   alt={`Prenup photoshoot ${index + 1}`}
-                  loading="lazy"
-                  className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading={index < 6 ? "eager" : "lazy"}
+                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
                   onError={() => handleImageError(index)}
-                  style={{ aspectRatio: 'auto' }}
+                  onLoad={() => handleImageLoad(index)}
+                  onLoadStart={() => handleImageLoadStart(index)}
                 />
                 
                 {/* Hover overlay */}
-                <div className="absolute inset-0 bg-brand-navy/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="bg-white/90 rounded-full p-3">
+                <div className="absolute inset-0 bg-brand-navy/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="bg-white/95 rounded-full p-4 transform group-hover:scale-110 transition-transform duration-300">
                     <svg className="w-6 h-6 text-brand-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                     </svg>
                   </div>
+                </div>
+
+                {/* Image number indicator */}
+                <div className="absolute top-3 left-3 bg-black/60 text-white text-xs px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {index + 1}
                 </div>
               </div>
             </motion.div>
