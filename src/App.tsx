@@ -11,12 +11,18 @@ import Info from './components/Info';
 import Entourage from './components/Entourage';
 import Gallery from './components/Gallery';
 import RSVP from './components/RSVP';
+import IOSDebugInfo from './components/IOSDebugInfo';
+import { useIOSFixes } from './hooks/useIOSFixes';
 import './App.css';
 
 function App() {
+  // Apply iOS-specific fixes
+  useIOSFixes();
+
   return (
     <MotionConfig reducedMotion="user">
       <Layout>
+        <IOSDebugInfo />
         <EdgeFlorals />
         <Navbar />
         <Hero />

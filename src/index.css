@@ -66,6 +66,34 @@
       /* Fix for iOS Safari background-attachment: fixed issues */
       background-attachment: scroll;
     }
+    
+    /* Fix iOS Safari font rendering */
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Fix iOS Safari transform issues */
+    .motion-safe\:transform {
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+  }
+
+  /* Additional iOS fixes */
+  @media screen and (-webkit-min-device-pixel-ratio: 1) {
+    /* iOS Safari image rendering */
+    img {
+      image-rendering: auto;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+    
+    /* iOS Safari modal fixes */
+    .fixed {
+      -webkit-overflow-scrolling: touch;
+    }
   }
 
   /* Reduced motion preference */

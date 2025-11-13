@@ -33,7 +33,11 @@ const Gallery: React.FC = () => {
   }, [selectedImageIndex]);
 
   const handleImageError = (index: number) => {
-    console.error(`Failed to load image at index ${index}:`, imagesToShow[index]);
+    const imagePath = imagesToShow[index];
+    console.error(`Failed to load image at index ${index}:`, imagePath);
+    console.error('Original path:', imagePath);
+    console.error('Encoded path:', getImageUrl(imagePath));
+    console.error('User agent:', navigator.userAgent);
     setImageLoadErrors(prev => new Set(prev).add(index));
     setLoadingImages(prev => {
       const newSet = new Set(prev);
@@ -128,7 +132,10 @@ const Gallery: React.FC = () => {
       >
         {imagesToShow.map((imagePath, index) => {
           // Skip images that failed to load
-          if (imageLoadErrors.has(index)) return null;
+          if (imageLoadErrors.has(index)) {
+            console.log(`Skipping failed image at index ${index}`);
+            return null;
+          }
           
           const isLoading = loadingImages.has(index);
           

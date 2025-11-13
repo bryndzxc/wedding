@@ -34,10 +34,12 @@ export const encodeImageUrl = (imagePath: string): string => {
   // Ensure the path starts with /
   const normalizedPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
   
-  // Split by '/' and encode each segment that contains special characters
+  // More aggressive encoding for iOS compatibility
   return normalizedPath.split('/').map(segment => {
-    // Only encode segments that contain problematic characters
-    if (segment.includes('(') || segment.includes(')') || segment.includes(' ') || segment.includes('%')) {
+    // Encode any segment that contains special characters
+    if (segment.includes('(') || segment.includes(')') || segment.includes(' ') || 
+        segment.includes('%') || segment.includes('-') || segment.includes('&') ||
+        /[^\w.-]/.test(segment)) {
       return encodeURIComponent(segment);
     }
     return segment;
