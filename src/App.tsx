@@ -12,8 +12,6 @@ import Entourage from './components/Entourage';
 import Gallery from './components/Gallery';
 import TestGallery from './components/TestGallery';
 import RSVP from './components/RSVP';
-import IOSDebugInfo from './components/IOSDebugInfo';
-import EmergencyFixButton from './components/EmergencyFixButton';
 import { useIOSFixes } from './hooks/useIOSFixes';
 import { useCharsetFix } from './hooks/useCharsetFix';
 import { useForceRender } from './hooks/useForceRender';
@@ -28,7 +26,6 @@ function App() {
   return (
     <MotionConfig reducedMotion="user">
       <Layout>
-        <IOSDebugInfo />
         <EdgeFlorals />
         <Navbar />
         <Hero />
@@ -41,7 +38,6 @@ function App() {
         <TestGallery />
         <Gallery />
         <RSVP />
-        <EmergencyFixButton />
         <footer className="border-t border-brand-gold/30 py-8 text-center text-sm text-brand-ink/70 mt-16 bg-brand-beige/20">
           <p className="font-body">
             With love, {new Date().getFullYear()} • <span className="font-heading text-brand-navy text-lg">Brynd & Joanna</span>

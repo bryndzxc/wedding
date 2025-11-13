@@ -58,20 +58,13 @@ export default function Section({
               {title}
             </h2>
             
-            {/* Floral divider */}
+            {/* Ornamental divider */}
             <motion.div 
               variants={floralDividerVariants}
               className="flex items-center justify-center my-6"
             >
-              <img 
-                src="/assets/floral-divider.png" 
-                alt="" 
-                className="h-5 w-30 object-contain"
-                role="presentation"
-              />
+              <Ornament className="mx-auto h-4 text-brand-gold opacity-70" />
             </motion.div>
-            
-            <Ornament className="mx-auto h-4 text-brand-gold opacity-70" />
             
             {intro && (
               <motion.p 
