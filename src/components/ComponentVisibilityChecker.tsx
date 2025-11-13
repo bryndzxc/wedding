@@ -21,10 +21,10 @@ interface ComponentState {
 
 const ComponentVisibilityChecker: React.FC = () => {
   const [state, setState] = useState<ComponentState | null>(null);
+  const [showDebug, setShowDebug] = useState(false);
 
   useEffect(() => {
-    if (import.meta.env.PROD) return;
-
+    // Always check components, not just in dev mode
     const checkComponents = () => {
       const gallery = document.getElementById('gallery');
       const entourage = document.getElementById('entourage');
@@ -56,7 +56,37 @@ const ComponentVisibilityChecker: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  if (import.meta.env.PROD || !state) return null;
+  // Show debug info on mobile by detecting iOS
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const shouldShow = showDebug || isIOS;
+
+  if (!state || !shouldShow) {
+    // Show a small toggle button on iOS
+    if (isIOS && !showDebug) {
+      return (
+        <button
+          onClick={() => setShowDebug(true)}
+          style={{
+            position: 'fixed',
+            bottom: 10,
+            right: 10,
+            width: 60,
+            height: 60,
+            borderRadius: '50%',
+            background: '#007bff',
+            color: 'white',
+            border: 'none',
+            fontSize: '12px',
+            zIndex: 9999,
+            cursor: 'pointer'
+          }}
+        >
+          Debug
+        </button>
+      );
+    }
+    return null;
+  }
 
   return (
     <div 
@@ -122,6 +152,23 @@ const ComponentVisibilityChecker: React.FC = () => {
         }}
       >
         Force Show
+      </button>
+      
+      <button 
+        onClick={() => setShowDebug(false)}
+        style={{
+          marginTop: '5px',
+          padding: '5px',
+          background: '#dc3545',
+          color: 'white',
+          border: 'none',
+          borderRadius: '3px',
+          cursor: 'pointer',
+          fontSize: '10px',
+          width: '100%'
+        }}
+      >
+        Hide Debug
       </button>
     </div>
   );

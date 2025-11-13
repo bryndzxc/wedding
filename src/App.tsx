@@ -15,6 +15,7 @@ import RSVP from './components/RSVP';
 import IOSDebugInfo from './components/IOSDebugInfo';
 import CharacterTest from './components/CharacterTest';
 import ComponentVisibilityChecker from './components/ComponentVisibilityChecker';
+import EmergencyFixButton from './components/EmergencyFixButton';
 import { useIOSFixes } from './hooks/useIOSFixes';
 import { useCharsetFix } from './hooks/useCharsetFix';
 import { useForceRender } from './hooks/useForceRender';
@@ -44,6 +45,7 @@ function App() {
         <RSVP />
         <CharacterTest />
         <ComponentVisibilityChecker />
+        <EmergencyFixButton />
         <footer className="border-t border-brand-gold/30 py-8 text-center text-sm text-brand-ink/70 mt-16 bg-brand-beige/20">
           <p className="font-body">
             With love, {new Date().getFullYear()} • <span className="font-heading text-brand-navy text-lg">Brynd & Joanna</span>

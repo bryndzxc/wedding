@@ -1,7 +1,10 @@
 import React from 'react';
 
 const CharacterTest: React.FC = () => {
-  if (import.meta.env.PROD) return null;
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  
+  // Show on iOS devices or in development
+  if (!isIOS && import.meta.env.PROD) return null;
 
   const testCharacters = [
     { name: 'Ampersand', char: '&', code: '&amp;' },
