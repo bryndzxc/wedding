@@ -10,7 +10,6 @@ import AttireGuide from './components/AttireGuide';
 import Info from './components/Info';
 import Entourage from './components/Entourage';
 import Gallery from './components/Gallery';
-import TestGallery from './components/TestGallery';
 import RSVP from './components/RSVP';
 import { useIOSFixes } from './hooks/useIOSFixes';
 import { useCharsetFix } from './hooks/useCharsetFix';
@@ -35,7 +34,6 @@ function App() {
         <AttireGuide />
         <Info />
         <Entourage />
-        <TestGallery />
         <Gallery />
         <RSVP />
         <footer className="border-t border-brand-gold/30 py-8 text-center text-sm text-brand-ink/70 mt-16 bg-brand-beige/20">

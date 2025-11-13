@@ -104,12 +104,22 @@
       transform: translateZ(0) !important;
     }
     
-    /* Force grid layouts to work on iOS */
+    /* Force grid layouts to work properly */
     .grid {
-      display: -webkit-box !important;
-      display: -ms-flexbox !important;
-      display: flex !important;
-      flex-wrap: wrap !important;
+      display: grid !important;
+    }
+    
+    /* Fix responsive grid issues */
+    .md\:grid-cols-2 {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .lg\:grid-cols-2 {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .md\:grid-cols-3 {
+      grid-template-columns: repeat(3, 1fr) !important;
     }
     
     /* Ensure all motion components are visible */

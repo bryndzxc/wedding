@@ -111,12 +111,12 @@ const Hero: React.FC = () => {
         >
           {/* Couple Names */}
           <motion.h1 
-            className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-wide drop-shadow-lg"
+            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-wide drop-shadow-lg mb-6"
             variants={fadeUpVariants}
           >
-            <span className="block sm:inline">{siteConfig.couple.groom}</span>
-            <span className="hidden sm:inline mx-4">&</span>
-            <span className="block sm:inline">{siteConfig.couple.bride}</span>
+            <span className="block leading-tight">{siteConfig.couple.groom}</span>
+            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-brand-gold my-2">&</span>
+            <span className="block leading-tight">{siteConfig.couple.bride}</span>
           </motion.h1>
 
           {/* Wedding Date */}

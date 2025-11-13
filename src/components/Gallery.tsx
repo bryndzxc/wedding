@@ -168,7 +168,6 @@ const Gallery: React.FC = () => {
                 {/* Loading Skeleton - Show initially and while loading */}
                 <div className={`absolute inset-0 bg-brand-beige/30 flex items-center justify-center transition-opacity duration-300 ${isLoading ? 'opacity-100' : 'opacity-0'}`}>
                   <div className="flex flex-col items-center space-y-2">
-                    <div className="w-8 h-8 border-2 border-brand-gold border-t-transparent rounded-full animate-spin"></div>
                     <div className="text-xs text-brand-ink/60">Loading...</div>
                   </div>
                 </div>
@@ -187,16 +186,9 @@ const Gallery: React.FC = () => {
                   })}
                 />
                 
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-brand-navy/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="bg-white/95 rounded-full p-4 transform group-hover:scale-110 transition-transform duration-300">
-                    {/* Removed SVG icon that might be causing issues */}
-                  </div>
-                </div>
-
-                {/* Image number indicator */}
-                <div className="absolute top-3 left-3 bg-black/60 text-white text-xs px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  {index + 1}
+                {/* Hover overlay - removed problematic white circle */}
+                <div className="absolute inset-0 bg-brand-navy/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  {/* Clean hover state without circle */}
                 </div>
               </div>
             </motion.div>
@@ -258,7 +250,7 @@ const Gallery: React.FC = () => {
 
             {/* Main Image */}
             <motion.div
-              className="relative max-w-full max-h-full p-8"
+              className="relative max-w-5xl max-h-[90vh] p-4 sm:p-8"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -268,10 +260,12 @@ const Gallery: React.FC = () => {
               <img
                 src={getImageUrl(siteConfig.gallery[selectedImageIndex])}
                 alt={`Prenup photoshoot ${selectedImageIndex + 1}`}
-                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                className="w-full h-full max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                 style={getTransformStyle({
                   /* iOS Safari image rendering fixes */
-                  imageRendering: 'auto'
+                  imageRendering: 'auto',
+                  maxWidth: '80vw',
+                  maxHeight: '80vh'
                 })}
               />
             </motion.div>
