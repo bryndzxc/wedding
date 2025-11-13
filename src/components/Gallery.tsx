@@ -85,12 +85,20 @@ const Gallery: React.FC = () => {
 
     if (selectedImageIndex !== null) {
       document.addEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'hidden';
+      // Don't mess with body overflow on iOS to prevent scroll issues
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      if (!isIOS) {
+        document.body.style.overflow = 'hidden';
+      }
     }
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'unset';
+      // Only reset overflow if we changed it
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      if (!isIOS) {
+        document.body.style.overflow = 'unset';
+      }
     };
   }, [selectedImageIndex, navigateImage]);
 

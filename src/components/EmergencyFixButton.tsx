@@ -1,61 +1,94 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const EmergencyFixButton: React.FC = () => {
   const [hasTriedFix, setHasTriedFix] = useState(false);
+  const [showButton, setShowButton] = useState(false);
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   
-  // Only show on iOS
-  if (!isIOS) return null;
+  // Only show on iOS after a delay to avoid initial interference
+  useEffect(() => {
+    if (isIOS) {
+      const timer = setTimeout(() => setShowButton(true), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isIOS]);
+  
+  if (!isIOS || !showButton) return null;
 
   const applyEmergencyFix = () => {
-    console.log('Applying emergency iOS fixes...');
+    console.log('🔧 Applying emergency iOS fixes...');
     
-    // Force show Gallery and Entourage sections
-    const sections = ['gallery', 'entourage'];
-    sections.forEach(sectionId => {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        // Force visibility
-        section.style.setProperty('opacity', '1', 'important');
-        section.style.setProperty('visibility', 'visible', 'important');
-        section.style.setProperty('display', 'block', 'important');
-        section.style.setProperty('transform', 'translateZ(0)', 'important');
-        
-        // Force all child elements to be visible
-        const children = section.querySelectorAll('*');
-        children.forEach((child: Element) => {
-          const htmlChild = child as HTMLElement;
-          htmlChild.style.setProperty('opacity', '1', 'important');
-          htmlChild.style.setProperty('visibility', 'visible', 'important');
-          htmlChild.style.setProperty('display', 'initial', 'important');
-        });
-        
-        console.log(`Fixed section: ${sectionId}`);
-      } else {
-        console.error(`Section not found: ${sectionId}`);
+    // Remove any problematic transforms or animations
+    const style = document.createElement('style');
+    style.textContent = `
+      /* Force Gallery and Entourage to show on iOS */
+      #gallery, #entourage {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+        transform: none !important;
+        -webkit-transform: none !important;
+        animation: none !important;
+        -webkit-animation: none !important;
+        transition: none !important;
+        -webkit-transition: none !important;
+        height: auto !important;
+        overflow: visible !important;
+        position: relative !important;
+        z-index: 1 !important;
       }
-    });
+      
+      #gallery *, #entourage * {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        -webkit-transform: none !important;
+        animation: none !important;
+        -webkit-animation: none !important;
+        transition: none !important;
+        -webkit-transition: none !important;
+      }
+      
+      /* Fix character encoding issues */
+      * {
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+        text-rendering: optimizeLegibility !important;
+      }
+      
+      /* Prevent scroll interference */
+      body {
+        -webkit-overflow-scrolling: touch !important;
+        overflow-y: auto !important;
+      }
+    `;
+    document.head.appendChild(style);
     
-    // Force text to show properly
-    const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div');
-    textElements.forEach((element: Element) => {
-      const htmlElement = element as HTMLElement;
-      htmlElement.style.setProperty('-webkit-font-smoothing', 'antialiased', 'important');
-      htmlElement.style.setProperty('color', 'inherit', 'important');
-      htmlElement.style.setProperty('opacity', '1', 'important');
-    });
-    
-    // Force reflow
-    document.body.style.display = 'none';
-    void document.body.offsetHeight;
-    document.body.style.display = '';
+    // Force sections to be visible
+    setTimeout(() => {
+      ['gallery', 'entourage'].forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.style.cssText = `
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+            transform: none !important;
+            position: relative !important;
+            z-index: 1 !important;
+          `;
+          console.log(`✅ Fixed ${id} section`);
+        }
+      });
+    }, 100);
     
     setHasTriedFix(true);
+    setShowButton(false);
     
-    // Hide the button after 5 seconds
+    // Show success message then hide
     setTimeout(() => {
       setHasTriedFix(false);
-    }, 5000);
+    }, 3000);
   };
 
   if (hasTriedFix) {
@@ -63,48 +96,57 @@ const EmergencyFixButton: React.FC = () => {
       <div 
         style={{
           position: 'fixed',
-          bottom: 20,
+          top: 20,
           left: '50%',
           transform: 'translateX(-50%)',
           background: '#28a745',
           color: 'white',
-          padding: '15px 20px',
-          borderRadius: '10px',
+          padding: '10px 15px',
+          borderRadius: '8px',
           fontSize: '14px',
-          zIndex: 9999,
+          zIndex: 8888,
           textAlign: 'center',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+          boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+          pointerEvents: 'none'
         }}
       >
-        Emergency fix applied!<br />
-        Scroll to check Gallery & Entourage
+        ✅ iOS fixes applied! Scroll to check sections.
       </div>
     );
   }
 
   return (
-    <button
-      onClick={applyEmergencyFix}
+    <div
       style={{
         position: 'fixed',
-        bottom: 20,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        background: '#dc3545',
-        color: 'white',
-        border: 'none',
-        padding: '15px 25px',
-        borderRadius: '10px',
-        fontSize: '16px',
-        fontWeight: 'bold',
-        zIndex: 9999,
-        cursor: 'pointer',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-        minWidth: '200px'
+        bottom: 100,
+        right: 20,
+        zIndex: 8888,
+        pointerEvents: 'auto'
       }}
     >
-      🔧 Fix iOS Issues
-    </button>
+      <button
+        onClick={applyEmergencyFix}
+        style={{
+          background: '#ff6b35',
+          color: 'white',
+          border: 'none',
+          padding: '12px 16px',
+          borderRadius: '50%',
+          fontSize: '20px',
+          cursor: 'pointer',
+          boxShadow: '0 3px 10px rgba(0,0,0,0.3)',
+          width: '60px',
+          height: '60px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+        title="Fix iOS display issues"
+      >
+        🔧
+      </button>
+    </div>
   );
 };
 

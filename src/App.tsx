@@ -13,8 +13,6 @@ import Gallery from './components/Gallery';
 import TestGallery from './components/TestGallery';
 import RSVP from './components/RSVP';
 import IOSDebugInfo from './components/IOSDebugInfo';
-import CharacterTest from './components/CharacterTest';
-import ComponentVisibilityChecker from './components/ComponentVisibilityChecker';
 import EmergencyFixButton from './components/EmergencyFixButton';
 import { useIOSFixes } from './hooks/useIOSFixes';
 import { useCharsetFix } from './hooks/useCharsetFix';
@@ -43,8 +41,6 @@ function App() {
         <TestGallery />
         <Gallery />
         <RSVP />
-        <CharacterTest />
-        <ComponentVisibilityChecker />
         <EmergencyFixButton />
         <footer className="border-t border-brand-gold/30 py-8 text-center text-sm text-brand-ink/70 mt-16 bg-brand-beige/20">
           <p className="font-body">

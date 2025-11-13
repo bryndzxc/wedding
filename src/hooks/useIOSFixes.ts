@@ -8,14 +8,9 @@ export const useIOSFixes = () => {
     if (isIOSSafari) {
       console.log('iOS Safari detected, applying comprehensive fixes');
       
-      // Force redraw on iOS Safari
-      document.body.style.transform = 'translateZ(0)';
-      document.body.style.setProperty('-webkit-backface-visibility', 'hidden');
-      document.body.style.setProperty('backface-visibility', 'hidden');
-      
-      // Fix iOS Safari font rendering
-      document.body.style.setProperty('-webkit-font-smoothing', 'antialiased');
-      document.body.style.setProperty('-moz-osx-font-smoothing', 'grayscale');
+      // Ensure proper scrolling behavior
+      document.body.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
+      document.body.style.setProperty('overflow-y', 'auto', 'important');
       
       // Add a class to body for iOS-specific styling
       document.body.classList.add('ios-safari');
@@ -23,99 +18,127 @@ export const useIOSFixes = () => {
       // More aggressive CSS fixes for iOS Safari
       const style = document.createElement('style');
       style.textContent = `
-        /* Aggressive iOS Safari fixes */
+        /* Comprehensive iOS Safari fixes */
+        .ios-safari {
+          -webkit-overflow-scrolling: touch !important;
+          overflow-y: auto !important;
+        }
+        
         @media screen and (-webkit-min-device-pixel-ratio: 1) {
+          /* Force component visibility - most important fix */
+          .ios-safari #gallery, 
+          .ios-safari #entourage {
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+            transform: none !important;
+            -webkit-transform: none !important;
+            animation: none !important;
+            -webkit-animation: none !important;
+            position: relative !important;
+            height: auto !important;
+            overflow: visible !important;
+            z-index: 1 !important;
+          }
+          
+          /* Force all children to be visible */
+          .ios-safari #gallery *, 
+          .ios-safari #entourage * {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+            -webkit-transform: none !important;
+            animation: none !important;
+            -webkit-animation: none !important;
+          }
+          
+          /* Fix text rendering */
           .ios-safari * {
             -webkit-font-smoothing: antialiased !important;
             -moz-osx-font-smoothing: grayscale !important;
             text-rendering: optimizeLegibility !important;
-            -webkit-backface-visibility: hidden !important;
-            backface-visibility: hidden !important;
-          }
-          
-          .ios-safari img {
-            -webkit-backface-visibility: hidden !important;
-            backface-visibility: hidden !important;
-            transform: translateZ(0) !important;
-            image-rendering: auto !important;
-          }
-          
-          /* Force component visibility */
-          .ios-safari [id="gallery"], 
-          .ios-safari [id="entourage"] {
-            opacity: 1 !important;
-            visibility: visible !important;
-            display: block !important;
-            transform: translateZ(0) !important;
           }
           
           /* Fix grid layouts */
           .ios-safari .grid {
-            display: -webkit-box !important;
-            display: -ms-flexbox !important;
-            display: flex !important;
-            flex-wrap: wrap !important;
-            gap: 1rem !important;
+            display: grid !important;
           }
           
-          /* Fix Framer Motion issues */
-          .ios-safari [data-framer-component] {
-            opacity: 1 !important;
-            transform: translateZ(0) !important;
+          /* Prevent scroll interference from modals */
+          .ios-safari body[style*="overflow: hidden"] {
+            overflow: auto !important;
+            -webkit-overflow-scrolling: touch !important;
           }
           
-          /* Force text visibility */
-          .ios-safari h1, 
-          .ios-safari h2, 
-          .ios-safari h3, 
-          .ios-safari h4, 
-          .ios-safari h5, 
-          .ios-safari h6, 
-          .ios-safari p, 
-          .ios-safari span,
-          .ios-safari div {
-            color: inherit !important;
+          /* Force image visibility */
+          .ios-safari img {
             opacity: 1 !important;
             visibility: visible !important;
+            display: block !important;
+            image-rendering: auto !important;
           }
         }
       `;
       document.head.appendChild(style);
       
-      // Force reflow multiple times
-      const forceReflow = () => {
-        document.body.style.display = 'none';
-        void document.body.offsetHeight; // Force reflow
-        document.body.style.display = '';
+      // Force sections to show with a more reliable method
+      const forceSectionsVisible = () => {
+        console.log('🔍 Forcing Gallery and Entourage visibility...');
         
-        // Force another reflow after a delay
-        setTimeout(() => {
-          const elements = document.querySelectorAll('[id="gallery"], [id="entourage"]');
-          elements.forEach(el => {
-            if (el instanceof HTMLElement) {
-              el.style.opacity = '0.99';
-              void el.offsetHeight; // Force reflow
-              el.style.opacity = '1';
-            }
-          });
-        }, 500);
+        ['gallery', 'entourage'].forEach(id => {
+          const element = document.getElementById(id);
+          if (element) {
+            // Remove all problematic styling
+            element.style.cssText = `
+              opacity: 1 !important;
+              visibility: visible !important;
+              display: block !important;
+              transform: none !important;
+              -webkit-transform: none !important;
+              animation: none !important;
+              -webkit-animation: none !important;
+              position: relative !important;
+              height: auto !important;
+              overflow: visible !important;
+              z-index: 1 !important;
+            `;
+            
+            // Force children to be visible too
+            const children = element.querySelectorAll('*');
+            children.forEach((child: Element) => {
+              const htmlChild = child as HTMLElement;
+              htmlChild.style.opacity = '1';
+              htmlChild.style.visibility = 'visible';
+            });
+            
+            console.log(`✅ Fixed ${id} section - children count: ${children.length}`);
+          } else {
+            console.warn(`❌ Section not found: ${id}`);
+          }
+        });
       };
       
-      // Initial reflow
-      setTimeout(forceReflow, 100);
+      // Apply fixes multiple times to ensure they stick
+      setTimeout(forceSectionsVisible, 100);
+      setTimeout(forceSectionsVisible, 500);
+      setTimeout(forceSectionsVisible, 1000);
+      setTimeout(forceSectionsVisible, 2000);
       
-      // Reflow on resize
-      window.addEventListener('resize', forceReflow);
+      // Apply on scroll and interaction
+      const handleUserInteraction = () => {
+        setTimeout(forceSectionsVisible, 100);
+      };
       
-      // Reflow on orientation change
-      window.addEventListener('orientationchange', () => {
-        setTimeout(forceReflow, 100);
-      });
+      document.addEventListener('scroll', handleUserInteraction, { passive: true });
+      document.addEventListener('touchstart', handleUserInteraction, { passive: true });
       
       return () => {
         document.body.classList.remove('ios-safari');
-        document.head.removeChild(style);
-        window.removeEventListener('resize', forceReflow);
+        if (style.parentNode) {
+          document.head.removeChild(style);
+        }
+        document.removeEventListener('scroll', handleUserInteraction);
+        document.removeEventListener('touchstart', handleUserInteraction);
       };
     }
   }, []);
