@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Section from '../ui/Section';
 import { siteConfig } from '../data/site';
+import { getTextStyle, getTransformStyle, getModalStyle } from '../utils/ios';
 
 interface EntourageMember {
   name: string;
@@ -168,16 +169,19 @@ const Entourage: React.FC = () => {
                         : 'p-6'
                     }`}
                     variants={hoverVariants}
+                    style={getTransformStyle()}
                   >
                     <h4 className={`font-heading text-brand-navy text-center mb-1 ${
                       section.title === 'Principal Sponsors' 
                         ? 'text-base leading-snug'
                         : 'text-lg'
-                    }`}>
+                    }`}
+                    style={getTextStyle()}>
                       {member.name}
                     </h4>
                     
-                    <p className="text-brand-gold text-sm text-center font-medium">
+                    <p className="text-brand-gold text-sm text-center font-medium"
+                    style={getTextStyle()}>
                       {member.role}
                     </p>
                   </motion.div>
@@ -197,6 +201,7 @@ const Entourage: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeModal}
+            style={getModalStyle()}
           >
             {/* Backdrop */}
             <div className="absolute inset-0 bg-brand-navy/80 backdrop-blur-sm" />
@@ -208,6 +213,7 @@ const Entourage: React.FC = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
+              style={getTransformStyle()}
             >
               {/* Close button */}
               <button

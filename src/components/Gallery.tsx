@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HiOutlineChevronLeft, HiOutlineChevronRight, HiOutlineXMark } from 'react-icons/hi2';
 import Section from '../ui/Section';
 import { siteConfig } from '../data/site';
+import { encodeImageUrl, getTransformStyle, getModalStyle } from '../utils/ios';
 
 const Gallery: React.FC = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
@@ -53,6 +54,11 @@ const Gallery: React.FC = () => {
   const handleImageLoadStart = (index: number) => {
     console.log(`Starting to load image at index ${index}:`, imagesToShow[index]);
     setLoadingImages(prev => new Set(prev).add(index));
+  };
+
+  // Create properly encoded image URLs for iOS compatibility
+  const getImageUrl = (imagePath: string) => {
+    return encodeImageUrl(imagePath);
   };
 
   // Handle keyboard navigation
@@ -153,13 +159,17 @@ const Gallery: React.FC = () => {
                 </div>
                 
                 <img 
-                  src={imagePath}
+                  src={getImageUrl(imagePath)}
                   alt={`Prenup photoshoot ${index + 1}`}
                   loading={index < 6 ? "eager" : "lazy"}
                   className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
                   onError={() => handleImageError(index)}
                   onLoad={() => handleImageLoad(index)}
                   onLoadStart={() => handleImageLoadStart(index)}
+                  style={getTransformStyle({
+                    /* iOS Safari image rendering fixes */
+                    imageRendering: 'auto'
+                  })}
                 />
                 
                 {/* Hover overlay */}
@@ -190,6 +200,7 @@ const Gallery: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeLightbox}
+            style={getModalStyle()}
           >
             {/* Navigation Controls */}
             <div className="absolute inset-0 flex items-center justify-between p-4 z-10">
@@ -242,9 +253,13 @@ const Gallery: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={siteConfig.gallery[selectedImageIndex]}
+                src={getImageUrl(siteConfig.gallery[selectedImageIndex])}
                 alt={`Prenup photoshoot ${selectedImageIndex + 1}`}
                 className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                style={getTransformStyle({
+                  /* iOS Safari image rendering fixes */
+                  imageRendering: 'auto'
+                })}
               />
             </motion.div>
 

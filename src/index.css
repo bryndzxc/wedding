@@ -21,6 +21,9 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* iOS Safari fix */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
   
   html, body {
@@ -30,6 +33,10 @@
     background-size: cover;
     background-position: center;
     background-blend-mode: overlay;
+    /* iOS Safari fixes */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
@@ -41,6 +48,24 @@
         rgba(247, 243, 236, 0.98) 100%
       ),
       var(--paper-texture);
+    /* iOS Safari fixes */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Allow text selection for content areas */
+  p, h1, h2, h3, h4, h5, h6, span, div[class*="text"], div[class*="content"] {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  /* iOS Safari specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    body {
+      /* Fix for iOS Safari background-attachment: fixed issues */
+      background-attachment: scroll;
+    }
   }
 
   /* Reduced motion preference */

@@ -97,7 +97,7 @@ export const siteConfig = {
   // Entourage
   entourage: {
     parents: {
-      groom: ["Mr. Eutiquiano B. Benosa Jr.", "Mrs. Rosemarie P. Pateña"],
+      groom: ["Mr. Eutiquiano B. Benosa Jr.", "Mrs. Rosemarie P. Patena"],
       bride: ["Mr. Joseph P. Rebote", "Mrs. Annaliza T. Rebote"]
     },
     principalSponsors: [
@@ -113,11 +113,11 @@ export const siteConfig = {
       "Allen Lagundi",
       "Mark Joseph Cruz",
       "Anjjo Rebote",
-      "Adrian Pateña"
+      "Adrian Patena"
     ],
     bridesmaids: [
       "Bea Lorraine Benosa", 
-      "Ana Paula Pateña",
+      "Ana Paula Patena",
       "Cheddy Ann Bautista",
       "Angelica Rebote"
     ],

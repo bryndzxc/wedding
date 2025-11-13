@@ -115,7 +115,7 @@ const Info: React.FC = () => {
           <div className="space-y-3">
             <button
               onClick={handleCeremonyCalendar}
-              className="w-full flex items-center justify-center bg-brand-navy text-white px-4 py-3 rounded-lg hover:bg-brand-navy/90 transition-colors duration-200"
+              className="w-full flex items-center justify-center bg-brand-navy text-white px-4 py-3 rounded-lg hover:bg-brand-navy/90 transition-colors duration-200 font-medium"
             >
               <HiOutlineCalendarDays className="w-5 h-5 mr-2" />
               Add to Calendar
@@ -149,13 +149,13 @@ const Info: React.FC = () => {
               alt="Reception venue - Farm Hills Garden"
               className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
             />
-            <div className="absolute inset-0 bg-brand-gold/20"></div>
+            <div className="absolute inset-0 bg-brand-navy/20"></div>
           </div>
           
           <div className="p-8">
             <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-brand-gold/10 rounded-full flex items-center justify-center mr-4">
-                <svg className="w-6 h-6 text-brand-gold" fill="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 bg-brand-navy/10 rounded-full flex items-center justify-center mr-4">
+                <svg className="w-6 h-6 text-brand-navy" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 </svg>
               </div>
@@ -183,7 +183,7 @@ const Info: React.FC = () => {
           <div className="space-y-3">
             <button
               onClick={handleReceptionCalendar}
-              className="w-full flex items-center justify-center bg-brand-gold text-brand-navy px-4 py-3 rounded-lg hover:bg-brand-gold/90 transition-colors duration-200 font-medium"
+              className="w-full flex items-center justify-center bg-brand-navy text-white px-4 py-3 rounded-lg hover:bg-brand-navy/90 transition-colors duration-200 font-medium"
             >
               <HiOutlineCalendarDays className="w-5 h-5 mr-2" />
               Add to Calendar
@@ -191,7 +191,7 @@ const Info: React.FC = () => {
             
             <button
               onClick={() => openDirections(siteConfig.venues.reception.googleMapsUrl)}
-              className="w-full flex items-center justify-center border-2 border-brand-gold text-brand-gold px-4 py-3 rounded-lg hover:bg-brand-gold hover:text-brand-navy transition-colors duration-200"
+              className="w-full flex items-center justify-center border-2 border-brand-navy text-brand-navy px-4 py-3 rounded-lg hover:bg-brand-navy hover:text-white transition-colors duration-200"
             >
               <HiOutlineMapPin className="w-5 h-5 mr-2" />
               Get Directions
