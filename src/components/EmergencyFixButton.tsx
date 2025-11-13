@@ -56,10 +56,27 @@ const EmergencyFixButton: React.FC = () => {
         text-rendering: optimizeLegibility !important;
       }
       
+      /* Hide question marks and problematic characters on iOS */
+      *:before,
+      *:after {
+        content: "" !important;
+      }
+      
+      /* Hide any element that might contain question marks */
+      .question-mark,
+      [data-questionmark],
+      *[title*="?"],
+      *[alt*="?"] {
+        display: none !important;
+      }
+      
       /* Prevent scroll interference */
       body {
         -webkit-overflow-scrolling: touch !important;
         overflow-y: auto !important;
+        scroll-behavior: auto !important;
+        -webkit-scroll-behavior: auto !important;
+        position: relative !important;
       }
     `;
     document.head.appendChild(style);
@@ -80,6 +97,51 @@ const EmergencyFixButton: React.FC = () => {
           console.log(`✅ Fixed ${id} section`);
         }
       });
+      
+      // Hunt down and hide question mark elements
+      const hideQuestionMarks = () => {
+        // Find all text nodes containing question marks
+        const walker = document.createTreeWalker(
+          document.body,
+          NodeFilter.SHOW_TEXT
+        );
+        
+        const textNodes = [];
+        let node = walker.nextNode();
+        while (node) {
+          if (node.nodeValue && node.nodeValue.includes('?') && node.nodeValue.trim() === '?') {
+            textNodes.push(node);
+          }
+          node = walker.nextNode();
+        }
+        
+        // Hide parent elements of standalone question marks
+        textNodes.forEach(textNode => {
+          const parent = textNode.parentElement;
+          if (parent && parent.textContent?.trim() === '?') {
+            parent.style.display = 'none';
+            console.log('🚫 Hid question mark element:', parent);
+          }
+        });
+        
+        // Also hide any elements with specific classes or attributes
+        const questionMarkSelectors = [
+          '.question-mark',
+          '[data-questionmark]',
+          '*[title="?"]',
+          '*[alt="?"]'
+        ];
+        
+        questionMarkSelectors.forEach(selector => {
+          document.querySelectorAll(selector).forEach(el => {
+            (el as HTMLElement).style.display = 'none';
+          });
+        });
+        
+        console.log('🔧 Question mark cleanup completed');
+      };
+      
+      hideQuestionMarks();
     }, 100);
     
     setHasTriedFix(true);

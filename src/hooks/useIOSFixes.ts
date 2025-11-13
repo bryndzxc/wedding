@@ -22,6 +22,22 @@ export const useIOSFixes = () => {
         .ios-safari {
           -webkit-overflow-scrolling: touch !important;
           overflow-y: auto !important;
+          /* Prevent scroll jumping */
+          scroll-behavior: auto !important;
+          -webkit-scroll-behavior: auto !important;
+        }
+        
+        /* Hide question marks on iOS - they appear as encoding issues */
+        .ios-safari *::before,
+        .ios-safari *::after {
+          content: none !important;
+        }
+        
+        /* Hide elements that might show question marks */
+        .ios-safari .question-mark,
+        .ios-safari [data-questionmark],
+        .ios-safari *:contains("?") {
+          display: none !important;
         }
         
         @media screen and (-webkit-min-device-pixel-ratio: 1) {
@@ -68,6 +84,19 @@ export const useIOSFixes = () => {
           .ios-safari body[style*="overflow: hidden"] {
             overflow: auto !important;
             -webkit-overflow-scrolling: touch !important;
+          }
+          
+          /* Fix scroll jumping by preventing event interference */
+          .ios-safari {
+            position: relative !important;
+            scroll-behavior: auto !important;
+            -webkit-scroll-behavior: auto !important;
+          }
+          
+          /* Hide problematic characters that appear as question marks */
+          .ios-safari *:before,
+          .ios-safari *:after {
+            content: "" !important;
           }
           
           /* Force image visibility */
@@ -124,20 +153,21 @@ export const useIOSFixes = () => {
       setTimeout(forceSectionsVisible, 1000);
       setTimeout(forceSectionsVisible, 2000);
       
-      // Apply on scroll and interaction
+      // Remove the problematic scroll event listeners that cause jumping
+      // Only apply fixes on user interaction, not scroll
       const handleUserInteraction = () => {
+        // Debounce to prevent excessive calls
         setTimeout(forceSectionsVisible, 100);
       };
       
-      document.addEventListener('scroll', handleUserInteraction, { passive: true });
-      document.addEventListener('touchstart', handleUserInteraction, { passive: true });
+      // Use touchstart instead of scroll to avoid interference
+      document.addEventListener('touchstart', handleUserInteraction, { passive: true, once: true });
       
       return () => {
         document.body.classList.remove('ios-safari');
         if (style.parentNode) {
           document.head.removeChild(style);
         }
-        document.removeEventListener('scroll', handleUserInteraction);
         document.removeEventListener('touchstart', handleUserInteraction);
       };
     }
