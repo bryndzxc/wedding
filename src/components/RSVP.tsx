@@ -51,25 +51,45 @@ const RSVP: React.FC = () => {
     setIsLoading(true);
     
     try {
-      // Check if EmailJS environment variables exist
-      if (import.meta.env.VITE_EMAILJS_SERVICE_ID && 
-          import.meta.env.VITE_EMAILJS_TEMPLATE_ID && 
-          import.meta.env.VITE_EMAILJS_USER_ID) {
-        
-        // EmailJS integration would go here
-        // For now, we'll simulate the submission
-        console.log('EmailJS would send:', formData);
-        
-      } else {
-        // Log the form data and show success
-        console.log('RSVP Submission:', {
-          ...formData,
-          submittedAt: new Date().toISOString()
-        });
+      // Create a hidden iframe to submit the form without leaving the page
+      let iframe = document.getElementById('hidden-iframe') as HTMLIFrameElement;
+      if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.id = 'hidden-iframe';
+        iframe.name = 'hidden-iframe';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
       }
-      
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Create a form to submit to Google Apps Script
+      const form = document.createElement('form');
+      form.action = 'https://script.google.com/macros/s/AKfycbxbiLUG-vmmEDl339xn-Ed2DSJYCiZfqqRJhCT5kPFc_HQVOFFcreavIzGkVm1WXPk_/exec';
+      form.method = 'POST';
+      form.target = 'hidden-iframe'; // Submit to hidden iframe
+      form.style.display = 'none';
+
+      // Add form fields
+      const fields = {
+        name: formData.name,
+        email: formData.email,
+        attending: formData.attendance,
+        message: formData.message,
+        submittedAt: new Date().toISOString()
+      };
+
+      Object.entries(fields).forEach(([key, value]) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = value;
+        form.appendChild(input);
+      });
+
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+
+      console.log('RSVP submitted to Google Apps Script via hidden iframe');
       
       setShowSuccess(true);
       setFormData({
@@ -84,7 +104,8 @@ const RSVP: React.FC = () => {
       
     } catch (error) {
       console.error('Failed to submit RSVP:', error);
-      // In a real implementation, you'd show an error toast here
+      // You might want to show an error message to the user here
+      alert('Sorry, there was an error submitting your RSVP. Please try again.');
     } finally {
       setIsLoading(false);
     }
