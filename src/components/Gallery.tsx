@@ -122,6 +122,17 @@ const Gallery: React.FC = () => {
       intro="Capturing beautiful moments from our engagement photoshoot"
       background="paper"
     >
+      {/* Debug info for iOS */}
+      {import.meta.env.DEV && (
+        <div className="mb-4 p-4 bg-red-100 border border-red-400 rounded">
+          <p>Gallery Debug Info:</p>
+          <p>Images to show: {imagesToShow.length}</p>
+          <p>Image errors: {imageLoadErrors.size}</p>
+          <p>Loading images: {loadingImages.size}</p>
+          <p>User Agent: {navigator.userAgent.slice(0, 50)}...</p>
+        </div>
+      )}
+      
       {/* Elegant Grid Gallery */}
       <motion.div 
         className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"

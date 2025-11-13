@@ -7,7 +7,7 @@ export const siteConfig = {
     hashtag: "#BrofoundJOWone"
   },
 
-  // Wedding Date & Time
+  // Wedding Date and Time
   wedding: {
     date: "2025-12-16",
     ceremonyTime: "2:00 PM",
@@ -101,11 +101,11 @@ export const siteConfig = {
       bride: ["Mr. Joseph P. Rebote", "Mrs. Annaliza T. Rebote"]
     },
     principalSponsors: [
-      "Eric Zagalasis & Seferina Galope",
-      "Edmundo Blancaflor & Rosalinda Querobin", 
-      "Kim Lim & Sheila Lim",
-      "Ruel Cantuba & Laymen Cantuba",
-      "Mr. Noel Calibod & Mrs. Elvi Calibod"
+      "Eric Zagalasis and Seferina Galope",
+      "Edmundo Blancaflor and Rosalinda Querobin", 
+      "Kim Lim and Sheila Lim",
+      "Ruel Cantuba and Laymen Cantuba",
+      "Mr. Noel Calibod and Mrs. Elvi Calibod"
     ],
     bestMan: "Prince Ernhel Palacios",
     maidOfHonor: "Jhonalyn Rebote", 

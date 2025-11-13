@@ -116,6 +116,16 @@ const Entourage: React.FC = () => {
       title="Our Wedding Party" 
       intro="The special people who will stand with us on our big day"
     >
+      {/* Debug info for iOS */}
+      {import.meta.env.DEV && (
+        <div className="mb-4 p-4 bg-blue-100 border border-blue-400 rounded">
+          <p>Entourage Debug Info:</p>
+          <p>Entourage sections: {entourageSections.length}</p>
+          <p>User Agent: {navigator.userAgent.slice(0, 50)}...</p>
+          <p>Selected member: {selectedMember ? selectedMember.name : 'None'}</p>
+        </div>
+      )}
+      
       <div className="space-y-12">
         {entourageSections.map((section, sectionIndex) => (
           <motion.div
