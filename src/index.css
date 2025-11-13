@@ -94,6 +94,37 @@
     .fixed {
       -webkit-overflow-scrolling: touch;
     }
+    
+    /* Force gallery and entourage visibility on iOS */
+    #gallery, #entourage {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: block !important;
+      -webkit-transform: translateZ(0) !important;
+      transform: translateZ(0) !important;
+    }
+    
+    /* Force grid layouts to work on iOS */
+    .grid {
+      display: -webkit-box !important;
+      display: -ms-flexbox !important;
+      display: flex !important;
+      flex-wrap: wrap !important;
+    }
+    
+    /* Ensure all motion components are visible */
+    [data-framer-component] {
+      opacity: 1 !important;
+      -webkit-transform: translateZ(0) !important;
+      transform: translateZ(0) !important;
+    }
+    
+    /* Force text visibility */
+    h1, h2, h3, h4, h5, h6, p, span, div {
+      opacity: 1 !important;
+      visibility: visible !important;
+      color: inherit !important;
+    }
   }
 
   /* Reduced motion preference */

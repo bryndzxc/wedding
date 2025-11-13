@@ -14,14 +14,17 @@ import TestGallery from './components/TestGallery';
 import RSVP from './components/RSVP';
 import IOSDebugInfo from './components/IOSDebugInfo';
 import CharacterTest from './components/CharacterTest';
+import ComponentVisibilityChecker from './components/ComponentVisibilityChecker';
 import { useIOSFixes } from './hooks/useIOSFixes';
 import { useCharsetFix } from './hooks/useCharsetFix';
+import { useForceRender } from './hooks/useForceRender';
 import './App.css';
 
 function App() {
   // Apply iOS-specific fixes
   useIOSFixes();
   useCharsetFix();
+  useForceRender();
 
   return (
     <MotionConfig reducedMotion="user">
@@ -40,6 +43,7 @@ function App() {
         <Gallery />
         <RSVP />
         <CharacterTest />
+        <ComponentVisibilityChecker />
         <footer className="border-t border-brand-gold/30 py-8 text-center text-sm text-brand-ink/70 mt-16 bg-brand-beige/20">
           <p className="font-body">
             With love, {new Date().getFullYear()} • <span className="font-heading text-brand-navy text-lg">Brynd & Joanna</span>
