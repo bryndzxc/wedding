@@ -3,7 +3,7 @@ export const siteConfig = {
   // Couple Information
   couple: {
     bride: "Joanna",
-    groom: "Brynd Limuel",
+    groom: "Brynd",
     hashtag: "#BrofoundJOWone"
   },
 
