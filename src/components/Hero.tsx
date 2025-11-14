@@ -137,7 +137,7 @@ const Hero: React.FC<{ id?: string }> = ({ id }) => {
             }}
             variants={fadeUpVariants}
           >
-            December 7, 2025 • 2:00 PM
+            December 16, 2025 • 2:00 PM
           </motion.div>
 
           {/* CTA Buttons */}
