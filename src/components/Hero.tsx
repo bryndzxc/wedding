@@ -116,9 +116,8 @@ const Hero: React.FC<{ id?: string }> = ({ id }) => {
               textShadow: '0 0 30px rgba(255,255,255,1), 0 0 60px rgba(255,255,255,0.8), 0 0 90px rgba(255,255,255,0.6), 2px 2px 4px rgba(255,255,255,0.9)',
               letterSpacing: '0.1em',
               fontWeight: '600',
-              textStroke: '1px rgba(255,255,255,0.5)',
               WebkitTextStroke: '1px rgba(255,255,255,0.3)'
-            }}
+            } as React.CSSProperties}
             variants={fadeUpVariants}
           >
             {/* Decorative line above names */}
@@ -135,9 +134,8 @@ const Hero: React.FC<{ id?: string }> = ({ id }) => {
                 color: '#C9A857',
                 textShadow: '0 0 30px rgba(255,255,255,1), 0 0 60px rgba(255,255,255,0.8), 0 0 90px rgba(255,255,255,0.6), 2px 2px 4px rgba(255,255,255,0.9)',
                 fontFamily: 'serif',
-                textStroke: '1px rgba(255,255,255,0.3)',
                 WebkitTextStroke: '1px rgba(255,255,255,0.3)'
-              }}
+              } as React.CSSProperties}
             >&</span>
             <span className="block leading-tight">{siteConfig.couple.bride}</span>
           </motion.h1>
@@ -153,9 +151,8 @@ const Hero: React.FC<{ id?: string }> = ({ id }) => {
                 textShadow: '0 0 30px rgba(255,255,255,1), 0 0 60px rgba(255,255,255,0.8), 0 0 90px rgba(255,255,255,0.6), 2px 2px 4px rgba(255,255,255,0.9)',
                 letterSpacing: '0.15em',
                 fontWeight: '600',
-                textStroke: '1px rgba(255,255,255,0.5)',
                 WebkitTextStroke: '1px rgba(255,255,255,0.3)'
-              }}
+              } as React.CSSProperties}
             >
               December 16, 2025 • 2:00 PM
             </div>
