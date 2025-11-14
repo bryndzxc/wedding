@@ -278,7 +278,7 @@ const Video: React.FC = () => {
           className="mt-8 text-center"
           variants={fadeUpVariants}
         >
-          <div className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-soft-glow">
+          {/* <div className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-soft-glow">
             <h3 className="font-heading text-xl text-brand-navy mb-3">
               Behind the Scenes
             </h3>
@@ -286,7 +286,7 @@ const Video: React.FC = () => {
               Take a peek at our prenup photoshoot and see some of the fun moments 
               we captured while preparing for our big day. These memories are just the beginning!
             </p>
-          </div>
+          </div> */}
         </motion.div>
       </motion.div>
     </Section>
