@@ -208,17 +208,17 @@ const Gallery: React.FC = () => {
             style={getModalStyle()}
           >
             {/* Navigation Controls */}
-            <div className="absolute inset-0 flex items-center justify-between p-4 z-10">
+            <div className="absolute inset-0 flex items-center justify-between p-2 sm:p-4 z-10 pointer-events-none">
               {/* Previous Button */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   navigateImage('prev');
                 }}
-                className="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200"
+                className="w-10 h-10 sm:w-12 sm:h-12 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition-colors duration-200 pointer-events-auto"
                 aria-label="Previous image"
               >
-                <HiOutlineChevronLeft className="w-6 h-6 text-white" />
+                <HiOutlineChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </button>
 
               {/* Next Button */}
@@ -227,10 +227,10 @@ const Gallery: React.FC = () => {
                   e.stopPropagation();
                   navigateImage('next');
                 }}
-                className="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200"
+                className="w-10 h-10 sm:w-12 sm:h-12 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition-colors duration-200 pointer-events-auto"
                 aria-label="Next image"
               >
-                <HiOutlineChevronRight className="w-6 h-6 text-white" />
+                <HiOutlineChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </button>
             </div>
 
@@ -250,7 +250,7 @@ const Gallery: React.FC = () => {
 
             {/* Main Image */}
             <motion.div
-              className="relative max-w-5xl max-h-[90vh] p-4 sm:p-8"
+              className="relative w-full h-full max-w-7xl max-h-full p-2 sm:p-4 md:p-8 flex items-center justify-center"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -260,12 +260,14 @@ const Gallery: React.FC = () => {
               <img
                 src={getImageUrl(siteConfig.gallery[selectedImageIndex])}
                 alt={`Prenup photoshoot ${selectedImageIndex + 1}`}
-                className="w-full h-full max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                 style={getTransformStyle({
-                  /* iOS Safari image rendering fixes */
+                  /* Mobile-optimized sizing */
                   imageRendering: 'auto',
-                  maxWidth: '80vw',
-                  maxHeight: '80vh'
+                  maxWidth: window.innerWidth <= 768 ? '95vw' : '85vw',
+                  maxHeight: window.innerWidth <= 768 ? '85vh' : '80vh',
+                  width: 'auto',
+                  height: 'auto'
                 })}
               />
             </motion.div>

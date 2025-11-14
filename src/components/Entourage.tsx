@@ -132,18 +132,18 @@ const Entourage: React.FC = () => {
               {section.title}
             </motion.h3>
             
-            <div className={`grid gap-6 ${
+            <div className={`grid gap-4 sm:gap-6 ${
               section.members.length === 1 
                 ? 'justify-center max-w-sm mx-auto'
                 : section.members.length === 2 
-                  ? 'md:grid-cols-2 max-w-2xl mx-auto'
+                  ? 'grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto'
                 : section.title === 'Principal Sponsors'
-                    ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4'
+                    ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4'
                 : section.title === 'Special Roles'
-                    ? 'md:grid-cols-3 max-w-4xl mx-auto'
+                    ? 'grid-cols-1 sm:grid-cols-3 max-w-4xl mx-auto'
                   : section.members.length <= 4
-                    ? 'md:grid-cols-2 lg:grid-cols-4'
-                    : 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+                    ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
+                    : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
             }`}>
               {section.members.map((member, memberIndex) => (
                 <motion.div

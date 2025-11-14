@@ -99,29 +99,42 @@ const Hero: React.FC = () => {
               height="1080"
             />
           </picture>
+          {/* Elegant overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/35"></div>
         </motion.div>
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/70 to-brand-navy/20" />
-
-        {/* Hero Content */}
+        {/* Hero Content - Elegant text with refined shadows */}
         <motion.div 
-          className="relative z-10 text-center text-white px-6 max-w-4xl"
+          className="relative z-10 text-center px-6 max-w-4xl"
           variants={staggerVariants}
         >
           {/* Couple Names */}
           <motion.h1 
-            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-wide drop-shadow-lg mb-6"
+            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-wide mb-6 font-light"
+            style={{
+              color: '#ffffff',
+              textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.6), 0 8px 16px rgba(0,0,0,0.4)'
+            }}
             variants={fadeUpVariants}
           >
             <span className="block leading-tight">{siteConfig.couple.groom}</span>
-            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-brand-gold my-2">&</span>
+            <span 
+              className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl my-2 font-normal"
+              style={{
+                color: '#D4AF37',
+                textShadow: '0 2px 4px rgba(0,0,0,0.9), 0 4px 8px rgba(0,0,0,0.7), 0 8px 16px rgba(0,0,0,0.5)'
+              }}
+            >&</span>
             <span className="block leading-tight">{siteConfig.couple.bride}</span>
           </motion.h1>
 
           {/* Wedding Date */}
           <motion.p 
-            className="mt-6 font-body text-lg md:text-xl lg:text-2xl tracking-wider text-white/90"
+            className="font-body text-lg md:text-xl lg:text-2xl tracking-wider font-medium mb-10"
+            style={{
+              color: '#ffffff',
+              textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.5)'
+            }}
             variants={fadeUpVariants}
           >
             Tuesday • December 16, 2025 • 2:00 PM
@@ -129,12 +142,12 @@ const Hero: React.FC = () => {
 
           {/* CTA Buttons */}
           <motion.div 
-            className="mt-10 flex flex-col sm:flex-row justify-center gap-4"
+            className="flex flex-col sm:flex-row justify-center gap-4"
             variants={fadeUpVariants}
           >
             <motion.button
               onClick={scrollToRSVP}
-              className="inline-flex items-center justify-center rounded-full bg-brand-gold px-8 py-3 text-brand-navy font-medium text-lg transition-all duration-300 hover:bg-white hover:shadow-soft-glow focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-full bg-brand-gold px-8 py-3 text-brand-navy font-medium text-lg transition-all duration-300 hover:bg-yellow-400 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
               variants={buttonVariants}
               whileHover="hover"
               whileTap={{ scale: 0.98 }}
@@ -145,7 +158,11 @@ const Hero: React.FC = () => {
             
             <motion.a
               href="#timeline"
-              className="inline-flex items-center justify-center rounded-full border-2 border-white/80 px-8 py-3 text-white font-medium text-lg transition-all duration-300 hover:bg-white hover:text-brand-navy focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-full border-2 border-white px-8 py-3 font-medium text-lg transition-all duration-300 hover:bg-white hover:text-brand-navy focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
+              style={{
+                color: '#ffffff',
+                textShadow: '0 1px 2px rgba(0,0,0,0.6)'
+              }}
               variants={buttonVariants}
               whileHover="hover"
               whileTap={{ scale: 0.98 }}

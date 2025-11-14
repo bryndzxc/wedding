@@ -159,7 +159,7 @@ const RSVP: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white/90 backdrop-blur rounded-2xl p-8 shadow-soft-glow text-center"
+            className="bg-white/90 backdrop-blur rounded-2xl p-6 sm:p-8 shadow-soft-glow text-center"
           >
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -172,54 +172,52 @@ const RSVP: React.FC = () => {
             </p>
           </motion.div>
         ) : (
-          <div className="bg-white/90 backdrop-blur rounded-2xl p-8 shadow-soft-glow">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid gap-6 md:grid-cols-2">
-                {/* Name Field */}
-                <div className="md:col-span-1">
-                  <label htmlFor="name" className="block text-sm font-medium text-brand-navy mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className={`w-full px-4 py-3 rounded-lg border-2 transition-colors duration-200 focus:outline-none focus:ring-0 ${
-                      errors.name 
-                        ? 'border-red-300 focus:border-red-500' 
-                        : 'border-brand-beige focus:border-brand-gold'
-                    } bg-white/80`}
-                    placeholder="Enter your full name"
-                    required
-                    aria-describedby={errors.name ? 'name-error' : undefined}
-                  />
-                  {errors.name && (
-                    <p id="name-error" className="mt-1 text-sm text-red-600" role="alert">
-                      {errors.name}
-                    </p>
-                  )}
-                </div>
-
-                {/* Email Field */}
-                <div className="md:col-span-1">
-                  <label htmlFor="email" className="block text-sm font-medium text-brand-navy mb-2">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg border-2 border-brand-beige focus:border-brand-gold transition-colors duration-200 focus:outline-none focus:ring-0 bg-white/80"
-                    placeholder="your.email@example.com"
-                  />
-                  <p className="mt-1 text-xs text-brand-ink/60">
-                    Optional - for any updates or changes
+          <div className="bg-white/90 backdrop-blur rounded-2xl p-4 sm:p-6 md:p-8 shadow-soft-glow">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+              {/* Name Field */}
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-brand-navy mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className={`w-full px-3 py-3 sm:px-4 rounded-lg border-2 transition-colors duration-200 focus:outline-none focus:ring-0 ${
+                    errors.name 
+                      ? 'border-red-300 focus:border-red-500' 
+                      : 'border-brand-beige focus:border-brand-gold'
+                  } bg-white/80`}
+                  placeholder="Enter your full name"
+                  required
+                  aria-describedby={errors.name ? 'name-error' : undefined}
+                />
+                {errors.name && (
+                  <p id="name-error" className="mt-1 text-sm text-red-600" role="alert">
+                    {errors.name}
                   </p>
-                </div>
+                )}
+              </div>
+
+              {/* Email Field */}
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-brand-navy mb-2">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-3 sm:px-4 rounded-lg border-2 border-brand-beige focus:border-brand-gold transition-colors duration-200 focus:outline-none focus:ring-0 bg-white/80"
+                  placeholder="your.email@example.com"
+                />
+                <p className="mt-1 text-xs text-brand-ink/60">
+                  Optional - for any updates or changes
+                </p>
               </div>
 
               {/* Attendance Radio Buttons */}
@@ -228,8 +226,8 @@ const RSVP: React.FC = () => {
                   <legend className="block text-sm font-medium text-brand-navy mb-3">
                     Will you attend? *
                   </legend>
-                  <div className="flex gap-6">
-                    <label className="flex items-center">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
+                    <label className="flex items-center p-2 rounded-lg hover:bg-brand-beige/20 transition-colors">
                       <input
                         type="radio"
                         name="attendance"
@@ -239,9 +237,9 @@ const RSVP: React.FC = () => {
                         className="w-4 h-4 text-brand-gold focus:ring-brand-gold border-brand-beige"
                         required
                       />
-                      <span className="ml-2 text-brand-ink">Yes, I'll be there!</span>
+                      <span className="ml-3 text-brand-ink">Yes, I'll be there!</span>
                     </label>
-                    <label className="flex items-center">
+                    <label className="flex items-center p-2 rounded-lg hover:bg-brand-beige/20 transition-colors">
                       <input
                         type="radio"
                         name="attendance"
@@ -251,7 +249,7 @@ const RSVP: React.FC = () => {
                         className="w-4 h-4 text-brand-gold focus:ring-brand-gold border-brand-beige"
                         required
                       />
-                      <span className="ml-2 text-brand-ink">Sorry, can't make it</span>
+                      <span className="ml-3 text-brand-ink">Sorry, can't make it</span>
                     </label>
                   </div>
                   {errors.attendance && (
@@ -273,7 +271,7 @@ const RSVP: React.FC = () => {
                   rows={4}
                   value={formData.message}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg border-2 border-brand-beige focus:border-brand-gold transition-colors duration-200 focus:outline-none focus:ring-0 bg-white/80 resize-vertical"
+                  className="w-full px-3 py-3 sm:px-4 rounded-lg border-2 border-brand-beige focus:border-brand-gold transition-colors duration-200 focus:outline-none focus:ring-0 bg-white/80 resize-vertical"
                   placeholder="Share your wishes, memories, or any special requests..."
                 />
                 <p className="mt-1 text-xs text-brand-ink/60">
@@ -282,15 +280,15 @@ const RSVP: React.FC = () => {
               </div>
 
               {/* Submit Button */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p className="text-xs text-brand-ink/60 text-center sm:text-left">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                <p className="text-xs text-brand-ink/60 text-center sm:text-left order-2 sm:order-1">
                   We'll only use your details for guest list management and seating arrangements.
                 </p>
                 
                 <motion.button
                   type="submit"
                   disabled={isLoading}
-                  className={`inline-flex items-center justify-center px-8 py-3 rounded-full font-medium text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 ${
+                  className={`inline-flex items-center justify-center px-6 py-3 sm:px-8 rounded-full font-medium text-base sm:text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 w-full sm:w-auto order-1 sm:order-2 ${
                     isLoading
                       ? 'bg-brand-gold/50 text-brand-navy/70 cursor-not-allowed'
                       : 'bg-brand-gold text-brand-navy hover:bg-brand-navy hover:text-white shadow-soft-glow hover:shadow-lg'
