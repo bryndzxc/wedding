@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-brand-gold/20' 
+            ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-brand-light-blue/20' 
             : 'bg-black/60 backdrop-blur-md shadow-lg border-b border-white/20'
         }`}
       >
@@ -76,8 +76,8 @@ const Navbar: React.FC = () => {
                 }}
                 className={`font-heading text-2xl lg:text-3xl transition-colors duration-300 font-medium ${
                   isScrolled 
-                    ? 'text-brand-navy hover:text-brand-gold' 
-                    : 'text-white hover:text-brand-gold drop-shadow-lg'
+                    ? 'text-brand-navy-blue hover:text-brand-light-blue' 
+                    : 'text-white hover:text-brand-light-blue drop-shadow-lg'
                 }`}
               >
                 J & B
@@ -98,13 +98,13 @@ const Navbar: React.FC = () => {
                     }}
                     className={`px-3 py-2 text-sm font-medium tracking-wider uppercase transition-all duration-300 relative group font-semibold ${
                       isScrolled 
-                        ? 'text-brand-navy hover:text-brand-gold' 
-                        : 'text-white hover:text-brand-gold drop-shadow-lg'
+                        ? 'text-brand-navy-blue hover:text-brand-light-blue' 
+                        : 'text-white hover:text-brand-light-blue drop-shadow-lg'
                     }`}
                     whileHover={{ y: -2 }}
                   >
                     {item.name}
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-light-blue transition-all duration-300 group-hover:w-full"></span>
                   </motion.a>
                 ))}
               </div>
@@ -118,7 +118,7 @@ const Navbar: React.FC = () => {
                   e.stopPropagation(); // Prevent event bubbling to music player
                   setIsMobileMenuOpen(!isMobileMenuOpen);
                 }}
-                className="bg-white/90 text-brand-navy p-2 rounded-md hover:bg-white transition-colors duration-300 focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 border border-brand-gold/30"
+                className="bg-white/90 text-brand-navy-blue p-2 rounded-md hover:bg-white transition-colors duration-300 focus:ring-2 focus:ring-brand-light-blue focus:ring-offset-2 border border-brand-light-blue/30"
                 aria-label="Toggle mobile menu"
               >
                 {isMobileMenuOpen ? (

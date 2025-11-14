@@ -27,7 +27,7 @@ function App() {
       <Layout>
         <EdgeFlorals />
         <Navbar />
-        <Hero />
+        <Hero id="hero" />
         <Story />
         <Video />
         <Timeline />

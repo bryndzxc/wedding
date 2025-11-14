@@ -25,19 +25,24 @@ A beautiful, responsive wedding website built with React, Vite, and Tailwind CSS
 
 ## 🎨 Design Theme
 
-**Colors:**
-- Navy: #1D2A44 (primary text)
-- Steel: #2F3E5E (secondary text)  
-- Dusty Blue: #5A7DAC (accents)
-- Baby Blue: #9EB7D9 (highlights)
-- Powder Blue: #D7E4F5 (backgrounds)
-- Gold: #C9A65B (accents & dividers)
-- Cream: #F5F1EA (main background)
+**Colors (Light Blue Theme):**
+- Light Blue: #87CEEB (primary color)
+- Navy Blue: #2C3E50 (accent navy)
+- Soft Gray: #F5F7FA (background)
+- White: #FFFFFF (pure white)
+- Paper: #F0F8FF (light blue paper background)
+- Text: #2C3E50 (navy text)
+- Accent: #5DADE2 (lighter blue accent)
 
 **Typography:**
-- Headings: Cormorant Garamond (elegant serif)
-- Script: Great Vibes (romantic script)
-- Body: Lora (readable serif)
+- Headings: Playfair Display (elegant serif)
+- Body: Inter (modern sans-serif)
+
+**Special Features:**
+- **Elegant Intro Section**: TikTok-inspired fade-in animation with couple names and date
+- **Light Blue Paper Background**: Custom paper texture with light blue overlay
+- **Smooth Animations**: Floating elements and scroll-triggered animations
+- **Responsive Design**: Mobile-first with airy, minimal spacing
 
 ## 🛠️ Installation & Setup
 

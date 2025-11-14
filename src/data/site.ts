@@ -101,7 +101,7 @@ export const siteConfig = {
       bride: ["Mr. Joseph P. Rebote", "Mrs. Annaliza T. Rebote"]
     },
     principalSponsors: [
-      "Eric Zagalasis and Seferina Galope",
+      "Eric Zagala and Seferina Galope",
       "Edmundo Blancaflor and Rosalinda Querobin", 
       "Kim Lim and Sheila Lim",
       "Ruel Cantuba and Laymen Cantuba",
@@ -112,12 +112,12 @@ export const siteConfig = {
     groomsmen: [
       "Allen Lagundi",
       "Mark Joseph Cruz",
-      "Anjjo Rebote",
+      "Annjo Rebote",
       "Adrian Patena"
     ],
     bridesmaids: [
       "Bea Lorraine Benosa", 
-      "Ana Paula Patena",
+      "Anna Paula Patena",
       "Cheddy Ann Bautista",
       "Angelica Rebote"
     ],

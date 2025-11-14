@@ -7,15 +7,23 @@
 :root { 
   --page-max: 80rem;
   
-  /* Brand color CSS custom properties for theming */
-  --brand-navy: #1D2A44;
-  --brand-beige: #E9E3D6;
-  --brand-gold: #C9A857;
-  --brand-ink: #2B2B2B;
-  --brand-paper: #F7F3EC;
+  /* Light Blue Theme CSS custom properties */
+  --brand-light-blue: #87CEEB;
+  --brand-navy-blue: #2C3E50;
+  --brand-soft-gray: #F5F7FA;
+  --brand-white: #FFFFFF;
+  --brand-paper: #F0F8FF;
+  --brand-text: #2C3E50;
+  --brand-accent: #5DADE2;
   
-  /* Paper texture overlay */
-  --paper-texture: url('/assets/paper.jpg');
+  /* Legacy brand colors for compatibility */
+  --brand-navy: #2C3E50;
+  --brand-beige: #F5F7FA;
+  --brand-gold: #87CEEB;
+  --brand-ink: #2C3E50;
+  
+  /* Paper texture overlay - using light blue paper */
+  --paper-texture: url('/assets/paper-blue');
 }
 
 @layer base {
@@ -27,7 +35,8 @@
   }
   
   html, body {
-    @apply bg-brand-paper text-brand-ink;
+    @apply text-brand-text;
+    background-color: var(--brand-paper);
     background-image: var(--paper-texture);
     background-attachment: fixed;
     background-size: cover;
@@ -41,11 +50,11 @@
 
   body {
     @apply font-body;
-    /* Subtle paper texture overlay */
+    /* Subtle light blue paper texture overlay */
     background: 
       linear-gradient(180deg, 
-        rgba(247, 243, 236, 0.95) 0%, 
-        rgba(247, 243, 236, 0.98) 100%
+        rgba(240, 248, 255, 0.95) 0%, 
+        rgba(245, 247, 250, 0.98) 100%
       ),
       var(--paper-texture);
     /* iOS Safari fixes */
@@ -165,7 +174,7 @@
   }
   
   .elegant-input { 
-    @apply w-full bg-transparent border-0 border-b border-brand-gold/50 focus:border-brand-gold/90 focus:outline-none focus:ring-0 px-0 pb-2 text-brand-navy placeholder:text-steel/60 transition-colors duration-300; 
+    @apply w-full bg-transparent border-0 border-b border-brand-gold/50 focus:border-brand-gold/90 focus:outline-none focus:ring-0 px-0 pb-2 text-brand-text placeholder:text-brand-text/60 transition-colors duration-300; 
   }
   
   .elegant-card { 
@@ -173,7 +182,7 @@
   }
   
   .elegant-frame { 
-    @apply p-[1.2px] rounded-2xl bg-gradient-to-br from-brand-gold/80 via-powder/50 to-brand-gold/80; 
+    @apply p-[1.2px] rounded-2xl bg-gradient-to-br from-brand-gold/80 via-brand-gold/50 to-brand-gold/80; 
   }
   
   .section-title { 

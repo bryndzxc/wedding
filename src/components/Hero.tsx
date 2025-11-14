@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, MotionConfig } from 'framer-motion';
 import { siteConfig } from '../data/site';
 
-const Hero: React.FC = () => {
+const Hero: React.FC<{ id?: string }> = ({ id }) => {
   const scrollToRSVP = () => {
     const rsvpElement = document.getElementById('rsvp');
     if (rsvpElement) {
@@ -74,7 +74,7 @@ const Hero: React.FC = () => {
   return (
     <MotionConfig reducedMotion="user">
       <motion.header 
-        id="hero" 
+        id={id || "hero"} 
         className="relative h-screen grid place-items-center overflow-hidden"
         initial="hidden"
         animate="show"
@@ -100,7 +100,7 @@ const Hero: React.FC = () => {
             />
           </picture>
           {/* Elegant overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/35"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/50"></div>
         </motion.div>
 
         {/* Hero Content - Elegant text with refined shadows */}
@@ -110,35 +110,35 @@ const Hero: React.FC = () => {
         >
           {/* Couple Names */}
           <motion.h1 
-            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-wide mb-6 font-light"
+            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-wide mb-6 font-light relative text-white"
             style={{
-              color: '#ffffff',
-              textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.6), 0 8px 16px rgba(0,0,0,0.4)'
+              textShadow: '0 4px 12px rgba(0,0,0,0.9), 0 8px 24px rgba(0,0,0,0.7), 0 12px 48px rgba(0,0,0,0.5)',
+              filter: 'drop-shadow(0 0 20px rgba(0,0,0,0.8))'
             }}
             variants={fadeUpVariants}
           >
             <span className="block leading-tight">{siteConfig.couple.groom}</span>
             <span 
-              className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl my-2 font-normal"
+              className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl my-2 font-normal text-white"
               style={{
-                color: '#D4AF37',
-                textShadow: '0 2px 4px rgba(0,0,0,0.9), 0 4px 8px rgba(0,0,0,0.7), 0 8px 16px rgba(0,0,0,0.5)'
+                textShadow: '0 4px 12px rgba(0,0,0,0.9), 0 8px 24px rgba(0,0,0,0.7)',
+                filter: 'drop-shadow(0 0 15px rgba(201,168,87,0.4))'
               }}
             >&</span>
             <span className="block leading-tight">{siteConfig.couple.bride}</span>
           </motion.h1>
 
           {/* Wedding Date */}
-          <motion.p 
-            className="font-body text-lg md:text-xl lg:text-2xl tracking-wider font-medium mb-10"
+          <motion.div 
+            className="font-body text-lg md:text-xl lg:text-2xl tracking-wider font-medium mb-10 relative text-white"
             style={{
-              color: '#ffffff',
-              textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.5)'
+              textShadow: '0 4px 12px rgba(0,0,0,0.9), 0 8px 24px rgba(0,0,0,0.7)',
+              filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.8))'
             }}
             variants={fadeUpVariants}
           >
-            Tuesday • December 16, 2025 • 2:00 PM
-          </motion.p>
+            December 7, 2025 • 2:00 PM
+          </motion.div>
 
           {/* CTA Buttons */}
           <motion.div 
@@ -147,7 +147,7 @@ const Hero: React.FC = () => {
           >
             <motion.button
               onClick={scrollToRSVP}
-              className="inline-flex items-center justify-center rounded-full bg-brand-gold px-8 py-3 text-brand-navy font-medium text-lg transition-all duration-300 hover:bg-yellow-400 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-full bg-brand-gold px-8 py-3 text-brand-navy font-medium text-lg transition-all duration-300 hover:bg-brand-gold/80 hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 shadow-lg"
               variants={buttonVariants}
               whileHover="hover"
               whileTap={{ scale: 0.98 }}
@@ -158,10 +158,9 @@ const Hero: React.FC = () => {
             
             <motion.a
               href="#timeline"
-              className="inline-flex items-center justify-center rounded-full border-2 border-white px-8 py-3 font-medium text-lg transition-all duration-300 hover:bg-white hover:text-brand-navy focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-full border-2 border-white/80 px-8 py-3 font-medium text-lg transition-all duration-300 hover:bg-white hover:text-brand-navy hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 backdrop-blur-sm bg-white/10 shadow-lg text-white"
               style={{
-                color: '#ffffff',
-                textShadow: '0 1px 2px rgba(0,0,0,0.6)'
+                textShadow: '0 2px 4px rgba(0,0,0,0.8)'
               }}
               variants={buttonVariants}
               whileHover="hover"
@@ -185,8 +184,8 @@ const Hero: React.FC = () => {
             ease: "easeInOut"
           }}
         >
-          <div className="w-6 h-10 border-2 border-white/60 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/60 rounded-full mt-2"></div>
+          <div className="w-6 h-10 border-2 border-white/80 rounded-full flex justify-center backdrop-blur-sm bg-black/20 shadow-lg">
+            <div className="w-1 h-3 bg-white/90 rounded-full mt-2 shadow-sm"></div>
           </div>
         </motion.div>
       </motion.header>

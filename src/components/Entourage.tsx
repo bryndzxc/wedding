@@ -113,7 +113,7 @@ const Entourage: React.FC = () => {
   return (
     <Section 
       id="entourage" 
-      title="Our Wedding Party" 
+      title="Entourage" 
       intro="The special people who will stand with us on our big day"
     >
       <div className="space-y-12">
@@ -182,7 +182,7 @@ const Entourage: React.FC = () => {
                     
                     <p className="text-brand-gold text-sm text-center font-medium"
                     style={getTextStyle()}>
-                      {member.role}
+                      
                     </p>
                   </motion.div>
                 </motion.div>
