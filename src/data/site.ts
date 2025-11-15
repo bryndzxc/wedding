@@ -101,8 +101,8 @@ export const siteConfig = {
       bride: ["Mr. Joseph P. Rebote", "Mrs. Annaliza T. Rebote"]
     },
     principalSponsors: [
-      "Bro Eric Zagala and Sis Seferina Galope",
-      "Bro Edmundo Blancaflor and Sis Rosalinda Querobin", 
+      "Bro Eric Zagala and Sis Ceferina Galope",
+      "Bro Edmundo Blancaflor and Sis Rosalinda Querubin", 
       "Mr. Kim Lim and Mrs. Sheila Lim",
       "Mr. Ruel Cantuba and Mrs. Laymen Cantuba",
       "Mr. Noel Calibod and Mrs. Elvi Calibod"
